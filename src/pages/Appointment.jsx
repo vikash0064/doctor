@@ -71,7 +71,7 @@ const Appointment = () => {
         setIsLoading(true);
 
         try {
-            const res = await fetch('http://localhost:5000/api/appointments', {
+            const res = await fetch(API_ENDPOINTS.appointments, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
@@ -122,9 +122,9 @@ const Appointment = () => {
                             <Sparkles size={24} className="text-yellow-400" />
                         </div>
                     </div>
-                    
+
                     <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Appointment Booked! 🎉</h2>
-                    
+
                     <div className="bg-gradient-to-r from-blue-50 to-emerald-50 rounded-2xl p-6 mb-8">
                         <p className="text-lg font-semibold text-gray-800 mb-2">
                             {formData.name}
@@ -149,7 +149,7 @@ const Appointment = () => {
                         <p className="text-gray-600">
                             Our team will contact you within <strong>30 minutes</strong> to confirm your appointment.
                         </p>
-                        
+
                         <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg text-left">
                             <p className="text-sm font-medium text-gray-800 flex items-center gap-2 mb-2">
                                 <Clock size={16} />
@@ -379,7 +379,7 @@ const Appointment = () => {
                                             <button
                                                 key={index}
                                                 type="button"
-                                                onClick={() => setFormData({...formData, treatment: treatment.value})}
+                                                onClick={() => setFormData({ ...formData, treatment: treatment.value })}
                                                 className={`p-4 rounded-xl border-2 text-left transition-all duration-300 ${formData.treatment === treatment.value ? 'border-blue-500 bg-blue-50 shadow-sm' : 'border-gray-200 hover:border-blue-300 hover:shadow-sm'}`}
                                             >
                                                 <div className="flex items-start justify-between mb-2">
@@ -427,7 +427,7 @@ const Appointment = () => {
                                                 <button
                                                     key={level.value}
                                                     type="button"
-                                                    onClick={() => setFormData({...formData, urgency: level.value})}
+                                                    onClick={() => setFormData({ ...formData, urgency: level.value })}
                                                     className={`py-3 rounded-xl border-2 text-sm font-medium transition-all flex flex-col items-center ${formData.urgency === level.value ? level.color + ' border-current' : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'}`}
                                                 >
                                                     <span className="text-xl mb-1">{level.icon}</span>
