@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { 
-    Calendar, Download, Eye, FileSpreadsheet, 
-    Users, TrendingUp, Clock, CheckCircle, 
+import {
+    Calendar, Download, Eye, FileSpreadsheet,
+    Users, TrendingUp, Clock, CheckCircle,
     X, ChevronDown, Search, Filter,
     BarChart3, MessageSquare, Phone, Mail,
     ArrowUpRight, Printer, Share2, MoreVertical,
-    Upload, Video, Image, Trash2, Edit, 
+    Upload, Video, Image, Trash2, Edit,
     Play, UserPlus, DollarSign, Award,
     ThumbsUp, DownloadCloud, EyeOff,
     FileText, Settings, Bell, LogOut
@@ -22,7 +22,7 @@ const AdminDashboard = () => {
     const [showUploadModal, setShowUploadModal] = useState(false);
     const [selectedPatient, setSelectedPatient] = useState(null);
     const [activeTab, setActiveTab] = useState('testimonials');
-    
+
     // Media upload state
     const [uploadForm, setUploadForm] = useState({
         patientName: '',
@@ -286,7 +286,7 @@ const AdminDashboard = () => {
 
     const filteredTestimonials = testimonials.filter(testimonial => {
         const matchesSearch = testimonial.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                             testimonial.treatment.toLowerCase().includes(searchTerm.toLowerCase());
+            testimonial.treatment.toLowerCase().includes(searchTerm.toLowerCase());
         const matchesStatus = statusFilter === 'all' || testimonial.status === statusFilter;
         const matchesMedia = mediaFilter === 'all' || testimonial.mediaType === mediaFilter;
         return matchesSearch && matchesStatus && matchesMedia;
@@ -300,7 +300,7 @@ const AdminDashboard = () => {
     const handleFileUpload = (e) => {
         const file = e.target.files[0];
         if (file) {
-            setUploadForm({...uploadForm, file});
+            setUploadForm({ ...uploadForm, file });
         }
     };
 
@@ -330,22 +330,22 @@ const AdminDashboard = () => {
     ];
 
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-gray-50 dark:bg-slate-950 pt-20 transition-colors duration-300">
             {/* Top Header Bar */}
-            <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-40">
+            <header className="bg-white dark:bg-slate-900 shadow-sm border-b border-gray-200 dark:border-slate-800 sticky top-20 z-40">
                 <div className="container mx-auto px-4 py-3">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4">
-                            <h1 className="text-xl font-bold text-gray-900">📊 Admin Dashboard</h1>
-                            <div className="hidden md:flex items-center gap-2 text-sm text-gray-600">
+                            <h1 className="text-xl font-bold text-gray-900 dark:text-white">📊 Admin Dashboard</h1>
+                            <div className="hidden md:flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                                 <CheckCircle size={14} className="text-green-500" />
                                 <span>Last updated: Today, 11:45 AM</span>
                             </div>
                         </div>
-                        
+
                         <div className="flex items-center gap-3">
                             {/* Notification */}
-                            <button className="p-2 text-gray-600 hover:text-blue-600 relative">
+                            <button className="p-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 relative">
                                 <Bell size={20} />
                                 <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
                             </button>
@@ -358,7 +358,7 @@ const AdminDashboard = () => {
                                     placeholder="Search patients, treatments..."
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
-                                    className="pl-10 pr-4 py-2 bg-gray-100 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm w-64"
+                                    className="pl-10 pr-4 py-2 bg-gray-100 dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm w-64 text-gray-900 dark:text-white"
                                 />
                             </div>
 
@@ -372,88 +372,58 @@ const AdminDashboard = () => {
                                     <span>Export</span>
                                     <ChevronDown size={16} />
                                 </button>
-                                
+
                                 {showExportMenu && (
-                                    <div className="absolute top-full right-0 mt-1 bg-white rounded-lg shadow-xl border border-gray-200 z-50 min-w-[200px]">
+                                    <div className="absolute top-full right-0 mt-1 bg-white dark:bg-slate-800 rounded-lg shadow-xl border border-gray-200 dark:border-slate-700 z-50 min-w-[200px]">
                                         <div className="p-2">
                                             <button
                                                 onClick={() => handleExport('csv')}
-                                                className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded flex items-center gap-2"
+                                                className="w-full text-left px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700 rounded flex items-center gap-2"
                                             >
                                                 <FileSpreadsheet size={14} />
                                                 Export as CSV
                                             </button>
                                             <button
                                                 onClick={() => handleExport('excel')}
-                                                className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded flex items-center gap-2"
+                                                className="w-full text-left px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700 rounded flex items-center gap-2"
                                             >
                                                 <FileSpreadsheet size={14} />
                                                 Export as Excel
                                             </button>
                                             <button
                                                 onClick={() => handleExport('pdf')}
-                                                className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded flex items-center gap-2"
+                                                className="w-full text-left px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700 rounded flex items-center gap-2"
                                             >
                                                 <FileText size={14} />
                                                 Export as PDF
-                                            </button>
-                                            <div className="h-px bg-gray-200 my-1"></div>
-                                            <button
-                                                onClick={() => window.open('https://docs.google.com/spreadsheets', '_blank')}
-                                                className="w-full text-left px-3 py-2 text-sm text-blue-600 hover:bg-blue-50 rounded flex items-center gap-2"
-                                            >
-                                                <ArrowUpRight size={14} />
-                                                Open Google Sheet
-                                            </button>
-                                            <button
-                                                onClick={() => handleExport('backup')}
-                                                className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded flex items-center gap-2"
-                                            >
-                                                <DownloadCloud size={14} />
-                                                Backup All Data
                                             </button>
                                         </div>
                                     </div>
                                 )}
                             </div>
 
-                            {/* Upload Media Button */}
+                            {/* Action Buttons */}
                             <button
                                 onClick={() => setShowUploadModal(true)}
-                                className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all shadow-md hover:shadow-lg"
+                                className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all shadow-md"
                             >
                                 <Upload size={16} />
-                                <span className="hidden sm:inline">Upload Media</span>
-                            </button>
-
-                            {/* Appointment Button */}
-                            <button
-                                onClick={() => setShowAppointmentForm(true)}
-                                className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all shadow-md hover:shadow-lg"
-                            >
-                                <Calendar size={16} />
-                                <span className="hidden sm:inline">Book Appointment</span>
+                                <span className="hidden sm:inline">Upload</span>
                             </button>
                         </div>
                     </div>
 
                     {/* Tabs */}
-                    <div className="flex gap-1 mt-4 border-b border-gray-200">
+                    <div className="flex gap-1 mt-4 border-b border-gray-200 dark:border-slate-800">
                         <button
                             onClick={() => setActiveTab('testimonials')}
-                            className={`px-4 py-2 text-sm font-medium ${activeTab === 'testimonials' ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-500 hover:text-gray-700'}`}
+                            className={`px-4 py-2 text-sm font-medium ${activeTab === 'testimonials' ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'}`}
                         >
-                            Testimonials ({testimonials.length})
-                        </button>
-                        <button
-                            onClick={() => setActiveTab('media')}
-                            className={`px-4 py-2 text-sm font-medium ${activeTab === 'media' ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-500 hover:text-gray-700'}`}
-                        >
-                            Media Library
+                            Testimonials
                         </button>
                         <button
                             onClick={() => setActiveTab('analytics')}
-                            className={`px-4 py-2 text-sm font-medium ${activeTab === 'analytics' ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-500 hover:text-gray-700'}`}
+                            className={`px-4 py-2 text-sm font-medium ${activeTab === 'analytics' ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'}`}
                         >
                             Analytics
                         </button>
@@ -466,13 +436,12 @@ const AdminDashboard = () => {
                 {/* Stats Overview */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-6">
                     {statsData.map((stat, index) => (
-                        <div key={index} className="stat-card bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                        <div key={index} className="bg-white dark:bg-slate-900 rounded-xl p-4 border border-gray-200 dark:border-slate-800 shadow-sm transition-colors">
                             <div className="flex items-center justify-between">
                                 <div>
-                                    <p className="text-xs text-gray-500 mb-1">{stat.label}</p>
-                                    <p className="text-xl font-bold text-gray-900">{stat.value}</p>
-                                    <p className="text-xs text-green-600 mt-1">{stat.trend}</p>
-                                    <p className="text-xs text-gray-400 mt-1">{stat.description}</p>
+                                    <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">{stat.label}</p>
+                                    <p className="text-xl font-bold text-gray-900 dark:text-white">{stat.value}</p>
+                                    <p className="text-xs text-green-600 dark:text-green-400 mt-1">{stat.trend}</p>
                                 </div>
                                 <div className={`${stat.color} p-3 rounded-lg`}>
                                     <stat.icon size={20} className="text-white" />
@@ -483,534 +452,151 @@ const AdminDashboard = () => {
                 </div>
 
                 {/* Testimonials Table */}
-                <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-                    {/* Table Header */}
-                    <div className="p-4 border-b border-gray-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="bg-white dark:bg-slate-900 rounded-xl border border-gray-200 dark:border-slate-800 shadow-sm overflow-hidden transition-colors">
+                    {/* Table Header Area */}
+                    <div className="p-4 border-b border-gray-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <div>
-                            <h2 className="text-lg font-bold text-gray-900">Patient Testimonials</h2>
-                            <p className="text-sm text-gray-500">Showing {filteredTestimonials.length} of {testimonials.length} entries</p>
+                            <h2 className="text-lg font-bold text-gray-900 dark:text-white">Patient Testimonials</h2>
+                            <p className="text-sm text-gray-500 dark:text-gray-400">Total Entries: {filteredTestimonials.length}</p>
                         </div>
-                        
                         <div className="flex items-center gap-3">
-                            {/* Mobile Search */}
-                            <div className="md:hidden relative flex-1">
-                                <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                                <input
-                                    type="text"
-                                    placeholder="Search..."
-                                    value={searchTerm}
-                                    onChange={(e) => setSearchTerm(e.target.value)}
-                                    className="w-full pl-10 pr-4 py-2 bg-gray-100 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
-                                />
-                            </div>
-
-                            {/* Filters */}
-                            <div className="flex items-center gap-2">
-                                <select
-                                    value={statusFilter}
-                                    onChange={(e) => setStatusFilter(e.target.value)}
-                                    className="bg-gray-100 border border-gray-200 rounded-lg pl-3 pr-8 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                >
-                                    <option value="all">All Status</option>
-                                    <option value="completed">Completed</option>
-                                    <option value="in-progress">In Progress</option>
-                                </select>
-                                
-                                <select
-                                    value={mediaFilter}
-                                    onChange={(e) => setMediaFilter(e.target.value)}
-                                    className="bg-gray-100 border border-gray-200 rounded-lg pl-3 pr-8 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                >
-                                    <option value="all">All Media</option>
-                                    <option value="video">Video Only</option>
-                                    <option value="image">Image Only</option>
-                                </select>
-                            </div>
-
-                            {/* Action Buttons */}
-                            <div className="flex items-center gap-2">
-                                <button
-                                    onClick={() => window.print()}
-                                    className="p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
-                                    title="Print"
-                                >
-                                    <Printer size={18} />
-                                </button>
-                                <button
-                                    onClick={() => setShowUploadModal(true)}
-                                    className="p-2 text-purple-600 hover:text-purple-700 hover:bg-purple-50 rounded-lg transition-colors"
-                                    title="Upload Media"
-                                >
-                                    <Upload size={18} />
-                                </button>
-                            </div>
+                            <select
+                                value={statusFilter}
+                                onChange={(e) => setStatusFilter(e.target.value)}
+                                className="bg-gray-100 dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-gray-900 dark:text-white focus:outline-none"
+                            >
+                                <option value="all">All Status</option>
+                                <option value="completed">Completed</option>
+                                <option value="in-progress">In Progress</option>
+                            </select>
                         </div>
                     </div>
 
-                    {/* Scrollable Table Container */}
-                    <div className="overflow-x-auto max-h-[500px] scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+                    {/* Table Container */}
+                    <div className="overflow-x-auto">
                         <table className="w-full">
-                            <thead className="sticky top-0 bg-gray-50 z-10">
+                            <thead className="bg-gray-50 dark:bg-slate-800/50">
                                 <tr>
-                                    <th className="text-left p-4 text-sm font-medium text-gray-500">Patient</th>
-                                    <th className="text-left p-4 text-sm font-medium text-gray-500">Treatment</th>
-                                    <th className="text-left p-4 text-sm font-medium text-gray-500">Media</th>
-                                    <th className="text-left p-4 text-sm font-medium text-gray-500">Rating</th>
-                                    <th className="text-left p-4 text-sm font-medium text-gray-500">Date</th>
-                                    <th className="text-left p-4 text-sm font-medium text-gray-500">Revenue</th>
-                                    <th className="text-left p-4 text-sm font-medium text-gray-500">Status</th>
-                                    <th className="text-left p-4 text-sm font-medium text-gray-500">Actions</th>
+                                    <th className="text-left p-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Patient</th>
+                                    <th className="text-left p-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Treatment</th>
+                                    <th className="text-left p-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Revenue</th>
+                                    <th className="text-left p-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
+                                    <th className="text-left p-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody className="divide-y divide-gray-100 dark:divide-slate-800">
                                 {filteredTestimonials.map((testimonial) => (
-                                    <tr key={testimonial.id} className="border-b border-gray-100 hover:bg-gray-50">
+                                    <tr key={testimonial.id} className="hover:bg-gray-50 dark:hover:bg-slate-800/50 transition-colors">
                                         <td className="p-4">
                                             <div className="flex items-center gap-3">
-                                                <img 
-                                                    src={testimonial.avatar} 
-                                                    alt={testimonial.name}
-                                                    className="w-10 h-10 rounded-full object-cover border border-gray-200"
-                                                />
+                                                <img src={testimonial.avatar} className="w-8 h-8 rounded-full border dark:border-slate-700" alt="" />
                                                 <div>
-                                                    <p className="font-medium text-gray-900 text-sm">{testimonial.name}</p>
-                                                    <p className="text-xs text-gray-500">{testimonial.age} yrs • {testimonial.location}</p>
+                                                    <p className="font-semibold text-sm text-gray-900 dark:text-white">{testimonial.name}</p>
+                                                    <p className="text-[10px] text-gray-500 uppercase">{testimonial.location}</p>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="p-4">
-                                            <span className="text-sm font-medium text-gray-700">{testimonial.treatment}</span>
+                                        <td className="p-4 text-sm text-gray-700 dark:text-gray-300">
+                                            {testimonial.treatment}
+                                        </td>
+                                        <td className="p-4 text-sm font-bold text-green-600 dark:text-green-400">
+                                            ₹{testimonial.revenue.toLocaleString()}
                                         </td>
                                         <td className="p-4">
-                                            <div className="flex items-center gap-2">
-                                                {testimonial.mediaType === 'video' ? (
-                                                    <Video size={16} className="text-red-500" />
-                                                ) : (
-                                                    <Image size={16} className="text-blue-500" />
-                                                )}
-                                                <span className="text-xs text-gray-600 capitalize">{testimonial.mediaType}</span>
-                                            </div>
-                                        </td>
-                                        <td className="p-4">
-                                            <div className="flex items-center gap-1">
-                                                {[...Array(testimonial.rating)].map((_, i) => (
-                                                    <span key={i} className="text-yellow-400">★</span>
-                                                ))}
-                                                <span className="text-sm text-gray-600 ml-1">{testimonial.rating}.0</span>
-                                            </div>
-                                        </td>
-                                        <td className="p-4">
-                                            <span className="text-sm text-gray-600">{testimonial.date}</span>
-                                        </td>
-                                        <td className="p-4">
-                                            <span className="font-medium text-green-600">₹{testimonial.revenue.toLocaleString()}</span>
-                                        </td>
-                                        <td className="p-4">
-                                            <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
-                                                testimonial.status === 'completed' 
-                                                    ? 'bg-green-100 text-green-800'
-                                                    : 'bg-yellow-100 text-yellow-800'
-                                            }`}>
-                                                {testimonial.status === 'completed' ? 'Completed' : 'In Progress'}
+                                            <span className={`px-2 py-1 rounded-full text-[10px] font-bold uppercase ${testimonial.status === 'completed' ? 'bg-green-100 text-green-700 dark:bg-green-900/30' : 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30'}`}>
+                                                {testimonial.status}
                                             </span>
                                         </td>
                                         <td className="p-4">
-                                            <div className="flex items-center gap-1">
-                                                <button
-                                                    onClick={() => setSelectedPatient(testimonial)}
-                                                    className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
-                                                    title="View Details"
-                                                >
-                                                    <Eye size={16} />
-                                                </button>
-                                                <button
-                                                    onClick={() => {/* Edit */}}
-                                                    className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
-                                                    title="Edit"
-                                                >
-                                                    <Edit size={16} />
-                                                </button>
-                                                <button
-                                                    onClick={() => {/* Preview media */}}
-                                                    className="p-2 text-purple-600 hover:bg-purple-50 rounded-lg transition-colors"
-                                                    title="Preview Media"
-                                                >
-                                                    {testimonial.mediaType === 'video' ? <Play size={16} /> : <Eye size={16} />}
-                                                </button>
-                                                <button
-                                                    onClick={() => {/* Delete */}}
-                                                    className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                                                    title="Delete"
-                                                >
-                                                    <Trash2 size={16} />
-                                                </button>
-                                            </div>
+                                            <button className="p-1.5 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded">
+                                                <Eye size={16} />
+                                            </button>
                                         </td>
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
                     </div>
-
-                    {/* Table Footer */}
-                    <div className="p-4 border-t border-gray-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-gray-50">
-                        <div className="flex items-center gap-4">
-                            <button
-                                onClick={() => window.open('https://docs.google.com/spreadsheets', '_blank')}
-                                className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 text-sm font-medium"
-                            >
-                                <FileSpreadsheet size={16} />
-                                Open Google Sheet
-                            </button>
-                            <button className="text-sm text-gray-600 hover:text-gray-900 flex items-center gap-1">
-                                <DownloadCloud size={14} />
-                                Download All
-                            </button>
-                        </div>
-                        <div className="flex items-center gap-4">
-                            <span className="text-sm text-gray-500">
-                                Page 1 of 3 • 15 entries per page
-                            </span>
-                            <div className="flex items-center gap-2">
-                                <button className="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-gray-100">
-                                    ← Previous
-                                </button>
-                                <button className="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-gray-100">
-                                    Next →
-                                </button>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </main>
-
-            {/* Upload Media Modal */}
-            {showUploadModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-                    <div className="bg-white rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
-                        <div className="p-6 border-b border-gray-200">
-                            <div className="flex items-center justify-between mb-4">
+            {/* Modals Container */}
+            <div className="z-50">
+                {/* Upload Media Modal */}
+                {showUploadModal && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+                        <div className="bg-white dark:bg-slate-900 rounded-3xl w-full max-w-lg shadow-2xl overflow-hidden border dark:border-slate-800">
+                            <div className="p-6 border-b border-gray-100 dark:border-slate-800 flex justify-between items-center">
                                 <div>
-                                    <h3 className="text-lg font-bold text-gray-900">Upload Patient Media</h3>
-                                    <p className="text-sm text-gray-500">Add video or photo testimonials</p>
+                                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">Upload Media</h3>
+                                    <p className="text-xs text-gray-500">Add new patient testimonial</p>
                                 </div>
-                                <button
-                                    onClick={() => setShowUploadModal(false)}
-                                    className="p-1 text-gray-400 hover:text-gray-600"
-                                >
-                                    <X size={20} />
+                                <button onClick={() => setShowUploadModal(false)} className="p-2 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-full transition-colors">
+                                    <X size={20} className="text-gray-500" />
                                 </button>
                             </div>
+                            <form onSubmit={handleUploadSubmit} className="p-6 space-y-4">
+                                <div className="space-y-4">
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div className="space-y-1">
+                                            <label className="text-xs font-bold text-gray-500 dark:text-gray-400">Patient Name</label>
+                                            <input type="text" required value={uploadForm.patientName} onChange={(e) => setUploadForm({ ...uploadForm, patientName: e.target.value })} className="w-full px-4 py-2 bg-gray-50 dark:bg-slate-800 border dark:border-slate-700 rounded-xl text-sm dark:text-white" />
+                                        </div>
+                                        <div className="space-y-1">
+                                            <label className="text-xs font-bold text-gray-500 dark:text-gray-400">Treatment</label>
+                                            <input type="text" required value={uploadForm.treatment} onChange={(e) => setUploadForm({ ...uploadForm, treatment: e.target.value })} className="w-full px-4 py-2 bg-gray-50 dark:bg-slate-800 border dark:border-slate-700 rounded-xl text-sm dark:text-white" />
+                                        </div>
+                                    </div>
+                                    <div className="space-y-1">
+                                        <label className="text-xs font-bold text-gray-500 dark:text-gray-400">Review</label>
+                                        <textarea value={uploadForm.review} onChange={(e) => setUploadForm({ ...uploadForm, review: e.target.value })} className="w-full px-4 py-2 bg-gray-50 dark:bg-slate-800 border dark:border-slate-700 rounded-xl text-sm dark:text-white" rows="3"></textarea>
+                                    </div>
+                                </div>
+                                <div className="flex gap-3 pt-4">
+                                    <button type="submit" className="flex-1 bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-700 transition-colors">Confirm Upload</button>
+                                    <button type="button" onClick={() => setShowUploadModal(false)} className="flex-1 bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-gray-400 py-3 rounded-xl font-bold">Cancel</button>
+                                </div>
+                            </form>
                         </div>
-
-                        <form onSubmit={handleUploadSubmit} className="p-6">
-                            <div className="space-y-4">
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">Patient Name</label>
-                                        <input
-                                            type="text"
-                                            required
-                                            value={uploadForm.patientName}
-                                            onChange={(e) => setUploadForm({...uploadForm, patientName: e.target.value})}
-                                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
-                                            placeholder="Patient name"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">Treatment</label>
-                                        <input
-                                            type="text"
-                                            required
-                                            value={uploadForm.treatment}
-                                            onChange={(e) => setUploadForm({...uploadForm, treatment: e.target.value})}
-                                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
-                                            placeholder="Treatment type"
-                                        />
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">Media Type</label>
-                                    <div className="flex gap-2">
-                                        <button
-                                            type="button"
-                                            onClick={() => setUploadForm({...uploadForm, mediaType: 'image'})}
-                                            className={`flex-1 py-3 rounded-lg border text-sm font-medium flex items-center justify-center gap-2 ${
-                                                uploadForm.mediaType === 'image' 
-                                                    ? 'border-blue-500 bg-blue-50 text-blue-600' 
-                                                    : 'border-gray-300 text-gray-600 hover:bg-gray-50'
-                                            }`}
-                                        >
-                                            <Image size={16} />
-                                            Image
-                                        </button>
-                                        <button
-                                            type="button"
-                                            onClick={() => setUploadForm({...uploadForm, mediaType: 'video'})}
-                                            className={`flex-1 py-3 rounded-lg border text-sm font-medium flex items-center justify-center gap-2 ${
-                                                uploadForm.mediaType === 'video' 
-                                                    ? 'border-blue-500 bg-blue-50 text-blue-600' 
-                                                    : 'border-gray-300 text-gray-600 hover:bg-gray-50'
-                                            }`}
-                                        >
-                                            <Video size={16} />
-                                            Video
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                                        Upload {uploadForm.mediaType === 'image' ? 'Image' : 'Video'}
-                                    </label>
-                                    <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-400 transition-colors">
-                                        <Upload size={24} className="mx-auto text-gray-400 mb-2" />
-                                        <p className="text-sm text-gray-600 mb-2">
-                                            Drag & drop or <span className="text-blue-600 cursor-pointer">browse</span>
-                                        </p>
-                                        <p className="text-xs text-gray-500">
-                                            {uploadForm.mediaType === 'image' 
-                                                ? 'Supports JPG, PNG up to 5MB' 
-                                                : 'Supports MP4, MOV up to 100MB'}
-                                        </p>
-                                        <input
-                                            type="file"
-                                            accept={uploadForm.mediaType === 'image' ? 'image/*' : 'video/*'}
-                                            onChange={handleFileUpload}
-                                            className="hidden"
-                                            id="file-upload"
-                                        />
-                                        <label htmlFor="file-upload" className="mt-3 inline-block px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 cursor-pointer">
-                                            Choose File
-                                        </label>
-                                        {uploadForm.file && (
-                                            <p className="mt-2 text-sm text-green-600">
-                                                Selected: {uploadForm.file.name}
-                                            </p>
-                                        )}
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">Patient Review</label>
-                                    <textarea
-                                        value={uploadForm.review}
-                                        onChange={(e) => setUploadForm({...uploadForm, review: e.target.value})}
-                                        rows="3"
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
-                                        placeholder="What did the patient say?"
-                                        required
-                                    />
-                                </div>
-
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">Rating</label>
-                                        <select
-                                            value={uploadForm.rating}
-                                            onChange={(e) => setUploadForm({...uploadForm, rating: e.target.value})}
-                                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
-                                        >
-                                            <option value="5">★★★★★ (5)</option>
-                                            <option value="4">★★★★☆ (4)</option>
-                                            <option value="3">★★★☆☆ (3)</option>
-                                            <option value="2">★★☆☆☆ (2)</option>
-                                            <option value="1">★☆☆☆☆ (1)</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
-                                        <input
-                                            type="text"
-                                            value={uploadForm.location}
-                                            onChange={(e) => setUploadForm({...uploadForm, location: e.target.value})}
-                                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
-                                            placeholder="City, Area"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="flex gap-3 mt-6">
-                                <button
-                                    type="submit"
-                                    className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white py-3 rounded-lg font-medium transition-colors"
-                                >
-                                    <Upload size={16} className="inline mr-2" />
-                                    Upload Media
-                                </button>
-                                <button
-                                    type="button"
-                                    onClick={() => setShowUploadModal(false)}
-                                    className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors"
-                                >
-                                    Cancel
-                                </button>
-                            </div>
-                        </form>
                     </div>
-                </div>
-            )}
+                )}
 
-            {/* Patient Detail Modal */}
-            {selectedPatient && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-                    <div className="bg-white rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
-                        <div className="p-6 border-b border-gray-200">
-                            <div className="flex items-center justify-between mb-4">
-                                <div>
-                                    <h3 className="text-lg font-bold text-gray-900">Patient Details</h3>
-                                    <p className="text-sm text-gray-500">Complete information and media</p>
-                                </div>
-                                <button
-                                    onClick={() => setSelectedPatient(null)}
-                                    className="p-1 text-gray-400 hover:text-gray-600"
-                                >
+                {/* Patient Detail Modal */}
+                {selectedPatient && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+                        <div className="bg-white dark:bg-slate-900 rounded-3xl w-full max-w-2xl shadow-2xl overflow-hidden border dark:border-slate-800 animate-in fade-in zoom-in duration-300">
+                            <div className="relative h-32 bg-gradient-to-r from-blue-600 to-indigo-600 font-sans">
+                                <button onClick={() => setSelectedPatient(null)} className="absolute top-4 right-4 p-2 bg-white/20 hover:bg-white/30 rounded-full text-white backdrop-blur-md">
                                     <X size={20} />
                                 </button>
+                                <div className="absolute -bottom-12 left-8 border-4 border-white dark:border-slate-900 rounded-3xl overflow-hidden bg-white">
+                                    <img src={selectedPatient.avatar} className="w-24 h-24 object-cover" alt="" />
+                                </div>
                             </div>
-                        </div>
-
-                        <div className="p-6">
-                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                                {/* Left Column - Patient Info */}
-                                <div className="lg:col-span-2">
-                                    <div className="bg-gray-50 rounded-xl p-6">
-                                        <div className="flex items-center gap-4 mb-6">
-                                            <img 
-                                                src={selectedPatient.avatar} 
-                                                alt={selectedPatient.name}
-                                                className="w-20 h-20 rounded-full object-cover border-4 border-white shadow"
-                                            />
-                                            <div>
-                                                <h4 className="text-xl font-bold text-gray-900">{selectedPatient.name}</h4>
-                                                <p className="text-gray-600">{selectedPatient.age} years • {selectedPatient.location}</p>
-                                                <div className="flex items-center gap-2 mt-2">
-                                                    <div className="flex">
-                                                        {[...Array(selectedPatient.rating)].map((_, i) => (
-                                                            <span key={i} className="text-yellow-400">★</span>
-                                                        ))}
-                                                    </div>
-                                                    <span className="text-sm font-medium text-gray-700">{selectedPatient.rating}.0</span>
-                                                </div>
-                                            </div>
+                            <div className="px-8 pt-16 pb-8">
+                                <h3 className="text-2xl font-bold dark:text-white">{selectedPatient.name}</h3>
+                                <p className="text-gray-500 mb-6 font-medium">{selectedPatient.location} • {selectedPatient.treatment}</p>
+                                <div className="p-4 bg-gray-50 dark:bg-slate-800 rounded-2xl border dark:border-slate-700 mb-6">
+                                    <p className="text-sm italic dark:text-gray-300 text-gray-600 leading-relaxed">"{selectedPatient.text}"</p>
+                                </div>
+                                <div className="flex items-center justify-between p-4 bg-blue-50 dark:bg-blue-900/20 rounded-2xl">
+                                    <div className="flex items-center gap-4">
+                                        <div className="p-3 bg-blue-100 dark:bg-blue-800 rounded-xl text-blue-600 dark:text-blue-400">
+                                            <TrendingUp size={20} />
                                         </div>
-
-                                        <div className="grid grid-cols-2 gap-4 mb-6">
-                                            <div className="bg-white p-4 rounded-lg border">
-                                                <p className="text-sm text-gray-500">Treatment</p>
-                                                <p className="font-medium text-gray-900">{selectedPatient.treatment}</p>
-                                            </div>
-                                            <div className="bg-white p-4 rounded-lg border">
-                                                <p className="text-sm text-gray-500">Date</p>
-                                                <p className="font-medium text-gray-900">{selectedPatient.date}</p>
-                                            </div>
-                                            <div className="bg-white p-4 rounded-lg border">
-                                                <p className="text-sm text-gray-500">Status</p>
-                                                <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
-                                                    selectedPatient.status === 'completed' 
-                                                        ? 'bg-green-100 text-green-800'
-                                                        : 'bg-yellow-100 text-yellow-800'
-                                                }`}>
-                                                    {selectedPatient.status === 'completed' ? 'Completed' : 'In Progress'}
-                                                </span>
-                                            </div>
-                                            <div className="bg-white p-4 rounded-lg border">
-                                                <p className="text-sm text-gray-500">Revenue</p>
-                                                <p className="font-medium text-green-600">₹{selectedPatient.revenue.toLocaleString()}</p>
-                                            </div>
-                                        </div>
-
                                         <div>
-                                            <p className="text-sm font-medium text-gray-700 mb-2">Patient Review</p>
-                                            <blockquote className="text-gray-700 italic border-l-4 border-blue-500 pl-4 py-2 bg-blue-50/50 rounded-r-lg">
-                                                "{selectedPatient.text}"
-                                            </blockquote>
+                                            <p className="text-[10px] uppercase font-bold text-blue-600 dark:text-blue-400">Treatment Cost</p>
+                                            <p className="text-lg font-bold dark:text-blue-400 text-gray-900">₹{selectedPatient.revenue.toLocaleString()}</p>
                                         </div>
                                     </div>
-                                </div>
-
-                                {/* Right Column - Media Preview */}
-                                <div>
-                                    <div className="bg-gray-50 rounded-xl p-6">
-                                        <h4 className="font-bold text-gray-900 mb-4">Media Preview</h4>
-                                        
-                                        <div className="rounded-lg overflow-hidden border border-gray-200 mb-4">
-                                            {selectedPatient.mediaType === 'video' ? (
-                                                <div className="relative">
-                                                    <video
-                                                        className="w-full h-48 object-cover"
-                                                        src={selectedPatient.mediaUrl}
-                                                        poster={selectedPatient.thumbnail}
-                                                        controls
-                                                    />
-                                                    <div className="absolute top-2 right-2">
-                                                        <span className="bg-red-500 text-white px-2 py-1 rounded text-xs font-medium">
-                                                            VIDEO
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            ) : (
-                                                <div className="relative">
-                                                    <img
-                                                        src={selectedPatient.mediaUrl}
-                                                        alt={selectedPatient.name}
-                                                        className="w-full h-48 object-cover"
-                                                    />
-                                                    <div className="absolute top-2 right-2">
-                                                        <span className="bg-blue-500 text-white px-2 py-1 rounded text-xs font-medium">
-                                                            PHOTO
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            )}
-                                        </div>
-
-                                        <div className="space-y-3">
-                                            <button className="w-full py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 flex items-center justify-center gap-2">
-                                                <Download size={16} />
-                                                Download Media
-                                            </button>
-                                            <button className="w-full py-3 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 flex items-center justify-center gap-2">
-                                                <Edit size={16} />
-                                                Edit Details
-                                            </button>
-                                            <button className="w-full py-3 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 flex items-center justify-center gap-2">
-                                                <Share2 size={16} />
-                                                Share on Social
-                                            </button>
-                                            <button className="w-full py-3 border border-red-300 text-red-600 rounded-lg font-medium hover:bg-red-50 flex items-center justify-center gap-2">
-                                                <Trash2 size={16} />
-                                                Delete Entry
-                                            </button>
-                                        </div>
+                                    <div className="flex items-center gap-1">
+                                        {[...Array(selectedPatient.rating)].map((_, i) => <span key={i} className="text-yellow-400 text-lg">★</span>)}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            )}
-
-            {/* Custom Scrollbar Styles */}
-            <style jsx>{`
-                .scrollbar-thin::-webkit-scrollbar {
-                    width: 6px;
-                    height: 6px;
-                }
-                .scrollbar-thin::-webkit-scrollbar-track {
-                    background: #f1f1f1;
-                    border-radius: 3px;
-                }
-                .scrollbar-thin::-webkit-scrollbar-thumb {
-                    background: #c1c1c1;
-                    border-radius: 3px;
-                }
-                .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-                    background: #a1a1a1;
-                }
-            `}</style>
+                )}
+            </div>
         </div>
     );
 };

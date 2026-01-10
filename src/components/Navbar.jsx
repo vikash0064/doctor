@@ -99,13 +99,13 @@ const Navbar = () => {
                     {/* Right Side: CTA Buttons + Mobile Appointment + Mobile Menu */}
                     <div className="flex items-center gap-2 sm:gap-3">
                         {/* Theme Toggle */}
-                        <button
+                        {/* <button
                             onClick={toggleTheme}
                             className="p-2.5 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors"
                             aria-label="Toggle Dark Mode"
                         >
                             {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-                        </button>
+                        </button> */}
 
                         {/* CTA Buttons */}
                         <div className="hidden md:flex items-center gap-4">

@@ -188,7 +188,7 @@ const Appointment = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-white to-blue-50 dark:from-slate-900 dark:to-slate-800 py-8 md:py-12 px-4 transition-colors duration-300">
+        <div className="min-h-screen bg-gradient-to-b from-white to-blue-50 dark:from-slate-900 dark:to-slate-800 pt-24 md:pt-28 pb-12 px-4 transition-colors duration-300">
             <div className="container mx-auto max-w-6xl">
                 {/* Header */}
                 <div className="text-center mb-10 md:mb-14">

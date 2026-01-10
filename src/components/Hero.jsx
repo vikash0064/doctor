@@ -210,12 +210,12 @@ const Hero = () => {
                     {/* Left Content */}
                     <div ref={textRef} className="lg:w-1/2 pt-16 lg:pt-0">
                         {/* Animated Badge */}
-                        <div className="inline-flex items-center gap-2 px-3 py-2 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md border border-white/20 dark:border-slate-700/50 shadow-xl rounded-xl mb-6 animate-float">
+                        <div className="inline-flex items-center gap-2 px-2.5 py-1.5 md:px-3 md:py-2 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md border border-white/20 dark:border-slate-700/50 shadow-xl rounded-lg md:rounded-xl mb-6 animate-float">
                             <div className="relative">
-                                <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-                                <div className="absolute inset-0 w-2 h-2 rounded-full bg-emerald-500 animate-ping opacity-30"></div>
+                                <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                                <div className="absolute inset-0 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-emerald-500 animate-ping opacity-30"></div>
                             </div>
-                            <span className="text-[10px] font-black text-gray-800 dark:text-gray-100 uppercase tracking-[0.2em]">
+                            <span className="text-[9px] md:text-[10px] font-black text-gray-800 dark:text-gray-100 uppercase tracking-[0.2em]">
                                 <span className="bg-gradient-to-r from-primary-600 to-emerald-600 dark:from-primary-400 dark:to-emerald-400 bg-clip-text text-transparent">
                                     Advanced & Painless
                                 </span>
@@ -375,17 +375,17 @@ const Hero = () => {
                             </div>
 
                             {/* Floating Badge */}
-                            <div className="floating-badge absolute -top-6 -right-4 bg-gradient-to-br from-white to-gray-50 dark:from-slate-800 dark:to-slate-900 p-5 rounded-2xl shadow-2xl shadow-primary-500/20 z-20 border border-gray-100/50 dark:border-slate-700 backdrop-blur-sm">
-                                <div className="flex items-center gap-4">
+                            <div className="floating-badge absolute -top-4 -right-2 md:-top-6 md:-right-4 bg-gradient-to-br from-white to-gray-50 dark:from-slate-800 dark:to-slate-900 p-2.5 md:p-5 rounded-xl md:rounded-2xl shadow-2xl shadow-primary-500/20 z-20 border border-gray-100/50 dark:border-slate-700 backdrop-blur-sm transition-all duration-300">
+                                <div className="flex items-center gap-2 md:gap-4">
                                     <div className="relative">
-                                        <div className="bg-gradient-to-r from-primary-500 to-emerald-500 p-3 rounded-full">
-                                            <Activity size={22} className="text-white" />
+                                        <div className="bg-gradient-to-r from-primary-500 to-emerald-500 p-2 md:p-3 rounded-full">
+                                            <Activity className="w-4 h-4 md:w-[22px] md:h-[22px] text-white" />
                                         </div>
-                                        <div className="absolute -top-1 -right-1 w-4 h-4 bg-emerald-400 rounded-full border-2 border-white dark:border-slate-800"></div>
+                                        <div className="absolute -top-1 -right-1 w-3 h-3 md:w-4 md:h-4 bg-emerald-400 rounded-full border-2 border-white dark:border-slate-800"></div>
                                     </div>
                                     <div>
-                                        <p className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">Featured</p>
-                                        <p className="text-sm font-bold text-gray-900 dark:text-white whitespace-nowrap">Latest Technology</p>
+                                        <p className="text-[9px] md:text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">Featured</p>
+                                        <p className="text-xs md:text-sm font-bold text-gray-900 dark:text-white whitespace-nowrap">Latest Tech</p>
                                     </div>
                                 </div>
                             </div>

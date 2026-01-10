@@ -96,7 +96,7 @@ const Treatments = () => {
     return (
         <main className="bg-gray-50 dark:bg-slate-900 min-h-screen transition-colors duration-300">
             {/* Header */}
-            <section className="bg-gradient-to-r from-blue-900 to-blue-700 dark:from-slate-800 dark:to-slate-900 py-20 text-white text-center">
+            <section className="bg-gradient-to-r from-blue-900 to-blue-700 dark:from-slate-800 dark:to-slate-900 pt-24 md:pt-28 pb-16 md:py-20 text-white text-center">
                 <h1 className="text-4xl md:text-5xl font-bold mb-4">Our Specialized Treatments</h1>
                 <p className="text-xl text-blue-100 dark:text-gray-400 max-w-2xl mx-auto">Comprehensive dental care solutions tailored to your unique needs.</p>
             </section>

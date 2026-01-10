@@ -21,7 +21,7 @@ const Contact = () => {
     };
 
     return (
-        <div className="bg-white dark:bg-slate-900 min-h-screen pt-10 pb-20 transition-colors duration-300">
+        <div className="bg-white dark:bg-slate-900 min-h-screen pt-24 md:pt-32 pb-20 transition-colors duration-300">
 
             {/* Header */}
             <div className="container mx-auto px-4 mb-16 text-center">
