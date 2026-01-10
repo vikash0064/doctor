@@ -16,21 +16,13 @@ const Navbar = () => {
 
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
-    // Add shadow on scroll and hide/show logic
+    // Add shadow on scroll effect
     useEffect(() => {
-        const showAnim = gsap.from(navRef.current, {
-            yPercent: -100,
-            paused: true,
-            duration: 0.3,
-            ease: "power2.inOut"
-        }).progress(1);
-
         ScrollTrigger.create({
             start: "top top",
             end: 99999,
             onUpdate: (self) => {
-                setScrolled(self.scroll() > 20);
-                self.direction === -1 ? showAnim.play() : showAnim.reverse();
+                setScrolled(self.scroll() > 30);
             }
         });
 

@@ -41,7 +41,7 @@ const blogPosts = [
         category: "Aligners & Braces",
         date: "Apr 22, 2025",
         readTime: "8 min",
-        img: "https://images.unsplash.com/photo-1598256989330-052973f71c17?q=80&w=600&auto=format&fit=crop",
+        img: "https://images.unsplash.com/photo-1513412803932-6fe214b7ec04?q=80&w=600&auto=format&fit=crop",
     },
     {
         id: 3,
@@ -77,6 +77,28 @@ const blogPosts = [
     }
 ];
 
+const CategoriesBar = ({ activeFilter, setActiveFilter }) => (
+    <div className=" top-[59px] md:top-[71px] z-40 bg-white dark:bg-slate-900 border-y border-gray-100 dark:border-slate-800 py-2 md:py-3 transition-all duration-300">
+        <div className="container mx-auto px-4">
+            <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide pb-1">
+                <Filter size={14} className="text-gray-400 hidden sm:block min-w-max mr-2" />
+                {categories.map((cat) => (
+                    <button
+                        key={cat}
+                        onClick={() => setActiveFilter(cat)}
+                        className={`whitespace-nowrap px-5 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all border ${activeFilter === cat
+                            ? 'bg-primary-600 text-white border-primary-600 shadow-lg shadow-primary-500/20 scale-105'
+                            : 'bg-gray-50 dark:bg-slate-800 text-gray-500 dark:text-gray-400 border-gray-200 dark:border-slate-700 hover:border-primary-300 dark:hover:border-slate-600'
+                            }`}
+                    >
+                        {cat}
+                    </button>
+                ))}
+            </div>
+        </div>
+    </div>
+);
+
 const Blogs = () => {
     const mainRef = useRef(null);
     const [activeFilter, setActiveFilter] = useState("All");
@@ -84,7 +106,6 @@ const Blogs = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
         let ctx = gsap.context(() => {
-            // Ensure immediate visibility with a simple fade-in
             gsap.fromTo(".blog-item",
                 { y: 30, opacity: 0 },
                 {
@@ -101,12 +122,14 @@ const Blogs = () => {
 
     const filteredPosts = activeFilter === "All"
         ? blogPosts
-        : blogPosts.filter(post => post.category.includes(activeFilter) || post.category === activeFilter);
+        : blogPosts.filter(post =>
+            post.category && (post.category.includes(activeFilter) || post.category === activeFilter)
+        );
 
     return (
         <main ref={mainRef} className="bg-gray-50 dark:bg-slate-900 min-h-screen transition-colors duration-300">
             {/* Optimized Header Area */}
-            <div className="pt-24 pb-8 md:pb-12 bg-white dark:bg-slate-900 border-b border-gray-100 dark:border-slate-800 transition-colors">
+            <div className="pt-24 pb-8 md:pt-32 md:pb-12 bg-white dark:bg-slate-900 border-b border-gray-100 dark:border-slate-800 transition-colors">
                 <div className="container mx-auto px-4">
                     <div className="flex items-center gap-2 text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-4 md:mb-6">
                         <Link to="/" className="hover:text-primary-500 transition-colors">Home</Link>
@@ -142,28 +165,9 @@ const Blogs = () => {
                 </div>
             </div>
 
-            {/* Filtering Space */}
-            <div className="sticky top-[60px] md:top-[72px] z-30 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-gray-200 dark:border-slate-800 py-3 shadow-sm transition-all">
-                <div className="container mx-auto px-4">
-                    <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide pb-1 sm:pb-0">
-                        <Filter size={14} className="text-gray-400 hidden sm:block min-w-max" />
-                        {categories.map((cat) => (
-                            <button
-                                key={cat}
-                                onClick={() => setActiveFilter(cat)}
-                                className={`whitespace-nowrap px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all border ${activeFilter === cat
-                                    ? 'bg-primary-500 text-white border-primary-500 shadow-md transform scale-105'
-                                    : 'bg-white dark:bg-slate-800 text-gray-500 dark:text-gray-400 border-gray-200 dark:border-slate-700 hover:border-gray-300 dark:hover:border-slate-600 hover:bg-gray-50 dark:hover:bg-slate-700'
-                                    }`}
-                            >
-                                {cat}
-                            </button>
-                        ))}
-                    </div>
-                </div>
-            </div>
+            <CategoriesBar activeFilter={activeFilter} setActiveFilter={setActiveFilter} />
 
-            <div className="container mx-auto px-4 py-8 md:py-12">
+            <div className="container mx-auto px-4 py-8 md:py-12 pb-32 md:pb-16">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 blogs-grid">
                     {filteredPosts.map((post) => (
                         <Link to="/" key={post.id} className="blog-item group bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 rounded-2xl overflow-hidden hover:shadow-xl hover:border-primary-100 dark:hover:border-slate-600 transition-all flex flex-col h-full transform hover:-translate-y-1 duration-300">
