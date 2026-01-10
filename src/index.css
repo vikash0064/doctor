@@ -38,14 +38,41 @@
   animation: scroll-images 20s linear infinite;
 }
 
+:root {
+  --bg-color: #ffffff;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --card-bg: #ffffff;
+  --border-color: #e2e8f0;
+}
+
+.dark {
+  --bg-color: #020617;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --card-bg: #0f172a;
+  --border-color: #1e293b;
+
+  /* Override Tailwind colors for dark mode if needed via CSS vars */
+}
+
 body {
   overflow-x: hidden;
   scroll-behavior: smooth;
-  background-color: #f8fafc;
-  /* Slate-50: A brighter, cleaner, premium white-blue tint */
-  background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Light mode pattern - clean white */
+body:not(.dark) {
+  /* background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+  background-size: 32px 32px; */
+  background-image: none;
+}
+
+/* Dark mode pattern */
+body.dark {
+  background-image: radial-gradient(#1e293b 1px, transparent 1px);
   background-size: 32px 32px;
-  /* Subtle dot pattern for texture */
-  color: #0f172a;
-  /* Slate-900: High contrast text */
 }

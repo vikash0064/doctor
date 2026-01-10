@@ -79,18 +79,18 @@ const ClinicGallery = () => {
 
 
     return (
-        <section className="py-20 bg-gray-50 min-h-screen">
+        <section className="py-20 bg-gray-50 dark:bg-slate-900 min-h-screen transition-colors duration-300">
             <div className="container mx-auto px-4">
 
                 {/* Header */}
                 <div className="text-center mb-12">
-                    <span className="inline-block py-1 px-3 rounded-full bg-primary-50 border border-primary-100 text-primary-600 text-xs font-black uppercase tracking-widest mb-4">
+                    <span className="inline-block py-1 px-3 rounded-full bg-primary-50 dark:bg-primary-900/30 border border-primary-100 dark:border-primary-900/50 text-primary-600 dark:text-primary-400 text-xs font-black uppercase tracking-widest mb-4">
                         Our Portfolio
                     </span>
-                    <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-4 tracking-tight">
-                        Life at <span className="text-primary-600">Dent O Care</span>
+                    <h1 className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-4 tracking-tight">
+                        Life at <span className="text-primary-600 dark:text-primary-500">Dent O Care</span>
                     </h1>
-                    <p className="text-gray-500 max-w-xl mx-auto">
+                    <p className="text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
                         A visual journey through our clinic, happy smiles, and advanced technology.
                     </p>
                 </div>
@@ -103,8 +103,8 @@ const ClinicGallery = () => {
                                 key={cat}
                                 onClick={() => { setActiveFilter(cat); setVisibleCount(9); }}
                                 className={`px-5 py-2 rounded-full text-sm font-bold transition-all ${activeFilter === cat
-                                        ? 'bg-gray-900 text-white shadow-lg scale-105'
-                                        : 'bg-white text-gray-500 border border-gray-200 hover:border-gray-900 hover:text-gray-900'
+                                    ? 'bg-gray-900 dark:bg-white text-white dark:text-gray-900 shadow-lg scale-105'
+                                    : 'bg-white dark:bg-slate-800 text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-slate-700 hover:border-gray-900 dark:hover:border-white hover:text-gray-900 dark:hover:text-white'
                                     }`}
                             >
                                 {cat}
@@ -118,7 +118,7 @@ const ClinicGallery = () => {
                     {filteredImages.slice(0, visibleCount).map((img, index) => (
                         <div
                             key={index}
-                            className="break-inside-avoid relative group cursor-pointer rounded-2xl overflow-hidden shadow-sm bg-gray-200"
+                            className="break-inside-avoid relative group cursor-pointer rounded-2xl overflow-hidden shadow-sm bg-gray-200 dark:bg-slate-800"
                             onClick={() => setSelectedImageIndex(index)}
                         >
                             <img
@@ -145,7 +145,7 @@ const ClinicGallery = () => {
                     <div className="text-center mt-12">
                         <button
                             onClick={handleLoadMore}
-                            className="inline-flex items-center gap-2 bg-white text-gray-900 border-2 border-gray-900 px-8 py-3 rounded-full font-bold hover:bg-gray-900 hover:text-white transition-all"
+                            className="inline-flex items-center gap-2 bg-white dark:bg-slate-800 text-gray-900 dark:text-white border-2 border-gray-900 dark:border-white px-8 py-3 rounded-full font-bold hover:bg-gray-900 dark:hover:bg-white hover:text-white dark:hover:text-gray-900 transition-all"
                         >
                             Load More Photos <Loader2 size={16} className="animate-spin" />
                         </button>

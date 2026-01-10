@@ -104,22 +104,22 @@ const Blogs = () => {
         : blogPosts.filter(post => post.category.includes(activeFilter) || post.category === activeFilter);
 
     return (
-        <main ref={mainRef} className="bg-gray-50 min-h-screen">
+        <main ref={mainRef} className="bg-gray-50 dark:bg-slate-900 min-h-screen transition-colors duration-300">
             {/* Optimized Header Area */}
-            <div className="pt-24 pb-8 md:pb-12 bg-white border-b border-gray-100">
+            <div className="pt-24 pb-8 md:pb-12 bg-white dark:bg-slate-900 border-b border-gray-100 dark:border-slate-800 transition-colors">
                 <div className="container mx-auto px-4">
-                    <div className="flex items-center gap-2 text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4 md:mb-6">
+                    <div className="flex items-center gap-2 text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-4 md:mb-6">
                         <Link to="/" className="hover:text-primary-500 transition-colors">Home</Link>
                         <ChevronRight size={10} />
-                        <span className="text-primary-600">Article Hub</span>
+                        <span className="text-primary-600 dark:text-primary-400">Article Hub</span>
                     </div>
 
                     <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
                         <div className="max-w-2xl">
-                            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 tracking-tighter mb-4 leading-tight">
+                            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 dark:text-white tracking-tighter mb-4 leading-tight">
                                 Dental <span className="text-primary-500">Library</span>
                             </h1>
-                            <p className="text-gray-500 text-sm sm:text-base font-medium leading-relaxed">
+                            <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-base font-medium leading-relaxed">
                                 A clinical repository of dental wisdom, curated for regular patients and seekers of professional oral care insights.
                             </p>
                         </div>
@@ -130,12 +130,12 @@ const Blogs = () => {
                                 <input
                                     type="text"
                                     placeholder="Search articles..."
-                                    className="w-full bg-gray-50 border border-gray-200 rounded-xl py-3 pl-10 pr-4 text-xs font-bold outline-none focus:border-primary-500 focus:bg-white transition-all"
+                                    className="w-full bg-gray-50 dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl py-3 pl-10 pr-4 text-xs font-bold outline-none focus:border-primary-500 dark:focus:border-primary-500 focus:bg-white dark:focus:bg-slate-900 text-gray-900 dark:text-white transition-all placeholder:text-gray-400 dark:placeholder:text-gray-500"
                                 />
                                 <Search size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary-500" />
                             </div>
-                            <div className="flex items-center justify-center gap-2 bg-primary-50 px-4 py-3 rounded-xl border border-primary-100 min-w-max">
-                                <span className="text-primary-600 font-black text-[10px] uppercase tracking-wide">{blogPosts.length} Articles</span>
+                            <div className="flex items-center justify-center gap-2 bg-primary-50 dark:bg-primary-900/20 px-4 py-3 rounded-xl border border-primary-100 dark:border-primary-900/50 min-w-max">
+                                <span className="text-primary-600 dark:text-primary-400 font-black text-[10px] uppercase tracking-wide">{blogPosts.length} Articles</span>
                             </div>
                         </div>
                     </div>
@@ -143,7 +143,7 @@ const Blogs = () => {
             </div>
 
             {/* Filtering Space */}
-            <div className="sticky top-[60px] md:top-[72px] z-30 bg-white/90 backdrop-blur-md border-b border-gray-200 py-3 shadow-sm transition-all">
+            <div className="sticky top-[60px] md:top-[72px] z-30 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-gray-200 dark:border-slate-800 py-3 shadow-sm transition-all">
                 <div className="container mx-auto px-4">
                     <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide pb-1 sm:pb-0">
                         <Filter size={14} className="text-gray-400 hidden sm:block min-w-max" />
@@ -152,8 +152,8 @@ const Blogs = () => {
                                 key={cat}
                                 onClick={() => setActiveFilter(cat)}
                                 className={`whitespace-nowrap px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all border ${activeFilter === cat
-                                        ? 'bg-primary-500 text-white border-primary-500 shadow-md transform scale-105'
-                                        : 'bg-white text-gray-500 border-gray-200 hover:border-gray-300 hover:bg-gray-50'
+                                    ? 'bg-primary-500 text-white border-primary-500 shadow-md transform scale-105'
+                                    : 'bg-white dark:bg-slate-800 text-gray-500 dark:text-gray-400 border-gray-200 dark:border-slate-700 hover:border-gray-300 dark:hover:border-slate-600 hover:bg-gray-50 dark:hover:bg-slate-700'
                                     }`}
                             >
                                 {cat}
@@ -166,9 +166,9 @@ const Blogs = () => {
             <div className="container mx-auto px-4 py-8 md:py-12">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 blogs-grid">
                     {filteredPosts.map((post) => (
-                        <Link to="/" key={post.id} className="blog-item group bg-white border border-gray-100 rounded-2xl overflow-hidden hover:shadow-xl hover:border-primary-100 transition-all flex flex-col h-full transform hover:-translate-y-1 duration-300">
+                        <Link to="/" key={post.id} className="blog-item group bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 rounded-2xl overflow-hidden hover:shadow-xl hover:border-primary-100 dark:hover:border-slate-600 transition-all flex flex-col h-full transform hover:-translate-y-1 duration-300">
                             {/* Compact Image */}
-                            <div className="aspect-[16/10] overflow-hidden relative bg-gray-100">
+                            <div className="aspect-[16/10] overflow-hidden relative bg-gray-100 dark:bg-slate-700">
                                 <img
                                     loading="lazy"
                                     decoding="async"
@@ -177,7 +177,7 @@ const Blogs = () => {
                                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
                                 />
                                 <div className="absolute top-3 left-3">
-                                    <span className="bg-white/95 backdrop-blur-sm px-2.5 py-1 rounded-md text-[9px] font-black text-primary-600 uppercase tracking-widest shadow-sm border border-gray-100">
+                                    <span className="bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm px-2.5 py-1 rounded-md text-[9px] font-black text-primary-600 dark:text-primary-400 uppercase tracking-widest shadow-sm border border-gray-100 dark:border-slate-700">
                                         {post.category}
                                     </span>
                                 </div>
@@ -187,21 +187,21 @@ const Blogs = () => {
                             <div className="p-4 md:p-5 flex flex-col flex-grow">
                                 <div className="flex items-center gap-3 text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-3">
                                     <span className="flex items-center gap-1"><Calendar size={10} /> {post.date}</span>
-                                    <span className="w-1 h-1 rounded-full bg-gray-300"></span>
+                                    <span className="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600"></span>
                                     <span className="flex items-center gap-1"><Clock size={10} /> {post.readTime}</span>
                                 </div>
-                                <h3 className="text-base md:text-lg font-bold text-gray-800 leading-tight mb-4 group-hover:text-primary-600 transition-colors line-clamp-2">
+                                <h3 className="text-base md:text-lg font-bold text-gray-800 dark:text-gray-100 leading-tight mb-4 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors line-clamp-2">
                                     {post.title}
                                 </h3>
 
-                                <div className="mt-auto pt-4 border-t border-gray-50 flex items-center justify-between">
+                                <div className="mt-auto pt-4 border-t border-gray-50 dark:border-slate-700 flex items-center justify-between">
                                     <div className="flex items-center gap-2">
-                                        <div className="w-6 h-6 rounded-full overflow-hidden border border-gray-100">
+                                        <div className="w-6 h-6 rounded-full overflow-hidden border border-gray-100 dark:border-slate-600">
                                             <img loading="lazy" src={IMAGES.doctor} className="w-full h-full object-cover" alt="Doc" />
                                         </div>
-                                        <span className="text-[10px] font-bold text-gray-600">Dr. Modi</span>
+                                        <span className="text-[10px] font-bold text-gray-600 dark:text-gray-400">Dr. Modi</span>
                                     </div>
-                                    <div className="w-7 h-7 rounded-lg bg-gray-50 flex items-center justify-center text-gray-400 group-hover:bg-primary-500 group-hover:text-white transition-all transform group-hover:rotate-45">
+                                    <div className="w-7 h-7 rounded-lg bg-gray-50 dark:bg-slate-700 flex items-center justify-center text-gray-400 dark:text-gray-500 group-hover:bg-primary-500 group-hover:text-white transition-all transform group-hover:rotate-45">
                                         <ArrowRight size={14} strokeWidth={3} />
                                     </div>
                                 </div>
@@ -210,8 +210,8 @@ const Blogs = () => {
                     ))}
 
                     {/* Placeholder for 'Loading/More' admin view */}
-                    <div className="hidden xl:flex flex-col items-center justify-center border-2 border-dashed border-gray-200 rounded-2xl bg-gray-50/50 p-6 text-center min-h-[300px]">
-                        <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-sm mb-3">
+                    <div className="hidden xl:flex flex-col items-center justify-center border-2 border-dashed border-gray-200 dark:border-slate-700 rounded-2xl bg-gray-50/50 dark:bg-slate-800/50 p-6 text-center min-h-[300px]">
+                        <div className="w-12 h-12 rounded-full bg-white dark:bg-slate-700 flex items-center justify-center shadow-sm mb-3">
                             <Sparkles size={20} className="text-purple-400" />
                         </div>
                         <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">More Coming Soon</p>
@@ -220,10 +220,10 @@ const Blogs = () => {
 
                 {/* Pagination */}
                 <div className="mt-12 md:mt-16 flex items-center justify-center gap-2">
-                    <button className="w-10 h-10 rounded-xl border border-gray-200 flex items-center justify-center text-gray-500 hover:border-primary-500 hover:text-primary-500 hover:bg-white transition-all shadow-sm">1</button>
+                    <button className="w-10 h-10 rounded-xl border border-gray-200 dark:border-slate-700 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:border-primary-500 hover:text-primary-500 hover:bg-white dark:hover:bg-slate-800 transition-all shadow-sm">1</button>
                     <button className="w-10 h-10 rounded-xl bg-primary-500 text-white flex items-center justify-center font-black shadow-lg shadow-primary-500/30 transform hover:-translate-y-0.5 transition-all">2</button>
-                    <span className="mx-2 text-gray-300 font-bold tracking-widest">...</span>
-                    <button className="px-6 h-10 rounded-xl border border-gray-200 flex items-center justify-center text-[10px] font-black uppercase tracking-widest text-gray-600 hover:bg-white hover:border-primary-500 hover:text-primary-500 hover:shadow-md transition-all">Next Page</button>
+                    <span className="mx-2 text-gray-300 dark:text-gray-600 font-bold tracking-widest">...</span>
+                    <button className="px-6 h-10 rounded-xl border border-gray-200 dark:border-slate-700 flex items-center justify-center text-[10px] font-black uppercase tracking-widest text-gray-600 dark:text-gray-400 hover:bg-white dark:hover:bg-slate-800 hover:border-primary-500 hover:text-primary-500 hover:shadow-md transition-all">Next Page</button>
                 </div>
             </div>
 

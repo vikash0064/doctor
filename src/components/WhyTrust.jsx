@@ -14,17 +14,17 @@ const WhyTrust = () => {
     }, []);
 
     return (
-        <section ref={sectionRef} className="py-16 md:py-20 bg-white">
+        <section ref={sectionRef} className="py-16 md:py-20 bg-white dark:bg-slate-900 transition-colors duration-300">
             <div className="container mx-auto px-4">
                 <div className="text-center mb-12 animate-fade-in px-2">
-                    <span className="inline-flex items-center gap-2 px-4 py-1.5 mb-3 text-[10px] sm:text-xs font-extrabold tracking-[0.2em] text-primary-600 uppercase bg-primary-50 rounded-full border border-primary-100 shadow-sm">
+                    <span className="inline-flex items-center gap-2 px-4 py-1.5 mb-3 text-[10px] sm:text-xs font-extrabold tracking-[0.2em] text-primary-600 dark:text-primary-400 uppercase bg-primary-50 dark:bg-slate-800 rounded-full border border-primary-100 dark:border-slate-700 shadow-sm">
                         <span className="w-2 h-2 rounded-full bg-primary-500 animate-pulse"></span>
                         Trusted by 10,000+ Families
                     </span>
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mb-6 relative leading-tight tracking-tight text-gray-900">
-                        Why Choose <span className="bg-gradient-to-br from-primary-700 via-primary-500 to-primary-400 bg-clip-text text-transparent">Dent O Care?</span>
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mb-6 relative leading-tight tracking-tight text-gray-900 dark:text-white">
+                        Why Choose <span className="bg-gradient-to-br from-primary-700 via-primary-500 to-primary-400 dark:from-primary-400 dark:via-primary-300 dark:to-primary-200 bg-clip-text text-transparent">Dent O Care?</span>
                     </h2>
-                    <p className="text-sm sm:text-base md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed font-medium px-4">
+                    <p className="text-sm sm:text-base md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed font-medium px-4">
                         Experience expert dental care and clinical excellence. We are Surat's trusted choice for a healthy, beautiful smile.
                     </p>
                 </div>
@@ -52,8 +52,8 @@ const WhyTrust = () => {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">
                             {/* Item 1 */}
                             <div className="trust-card">
-                                <h3 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-primary-400 inline-block pb-1">World Class Treatment</h3>
-                                <ul className="space-y-3 text-gray-600">
+                                <h3 className="text-xl font-bold text-blue-900 dark:text-white mb-4 border-b-2 border-primary-400 inline-block pb-1">World Class Treatment</h3>
+                                <ul className="space-y-3 text-gray-600 dark:text-gray-400">
                                     <li className="flex gap-2"><Check size={18} className="text-green-500 mt-1 shrink-0" /> <span>Only clinic in Palanpur Patia with Advanced Laser Tech</span></li>
                                     <li className="flex gap-2"><Check size={18} className="text-green-500 mt-1 shrink-0" /> <span>Globally certified implant materials</span></li>
                                     <li className="flex gap-2"><Check size={18} className="text-green-500 mt-1 shrink-0" /> <span>3D Intraoral Scanning for precision</span></li>
@@ -62,8 +62,8 @@ const WhyTrust = () => {
 
                             {/* Item 2 */}
                             <div className="trust-card">
-                                <h3 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-primary-400 inline-block pb-1">Doctor-Led Patient Care</h3>
-                                <ul className="space-y-3 text-gray-600">
+                                <h3 className="text-xl font-bold text-blue-900 dark:text-white mb-4 border-b-2 border-primary-400 inline-block pb-1">Doctor-Led Patient Care</h3>
+                                <ul className="space-y-3 text-gray-600 dark:text-gray-400">
                                     <li className="flex gap-2"><Check size={18} className="text-green-500 mt-1 shrink-0" /> <span>Direct consultation with Dr. Nimisha Modi</span></li>
                                     <li className="flex gap-2"><Check size={18} className="text-green-500 mt-1 shrink-0" /> <span>Personalized treatment plans</span></li>
                                     <li className="flex gap-2"><Check size={18} className="text-green-500 mt-1 shrink-0" /> <span>Post-treatment follow-up calls</span></li>
@@ -72,8 +72,8 @@ const WhyTrust = () => {
 
                             {/* Item 3 */}
                             <div className="trust-card">
-                                <h3 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-primary-400 inline-block pb-1">15+ Years Experience</h3>
-                                <ul className="space-y-3 text-gray-600">
+                                <h3 className="text-xl font-bold text-blue-900 dark:text-white mb-4 border-b-2 border-primary-400 inline-block pb-1">15+ Years Experience</h3>
+                                <ul className="space-y-3 text-gray-600 dark:text-gray-400">
                                     <li className="flex gap-2"><Check size={18} className="text-green-500 mt-1 shrink-0" /> <span>10,000+ happy smiles delivered</span></li>
                                     <li className="flex gap-2"><Check size={18} className="text-green-500 mt-1 shrink-0" /> <span>Expert in complex full mouth rehabs</span></li>
                                     <li className="flex gap-2"><Check size={18} className="text-green-500 mt-1 shrink-0" /> <span>5000+ Implants placed successfully</span></li>
@@ -82,8 +82,8 @@ const WhyTrust = () => {
 
                             {/* Item 4 */}
                             <div className="trust-card">
-                                <h3 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-primary-400 inline-block pb-1">Unmatched Safety</h3>
-                                <ul className="space-y-3 text-gray-600">
+                                <h3 className="text-xl font-bold text-blue-900 dark:text-white mb-4 border-b-2 border-primary-400 inline-block pb-1">Unmatched Safety</h3>
+                                <ul className="space-y-3 text-gray-600 dark:text-gray-400">
                                     <li className="flex gap-2"><Check size={18} className="text-green-500 mt-1 shrink-0" /> <span>10X safety protocols (ISO Standards)</span></li>
                                     <li className="flex gap-2"><Check size={18} className="text-green-500 mt-1 shrink-0" /> <span>4-step sterilization process</span></li>
                                     <li className="flex gap-2"><Check size={18} className="text-green-500 mt-1 shrink-0" /> <span>Daily fumigation & spotlessly clean clinic</span></li>

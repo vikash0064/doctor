@@ -112,8 +112,8 @@ const Appointment = () => {
 
     if (isSubmitted) {
         return (
-            <div className="min-h-screen  flex items-center justify-center bg-gradient-to-br from-blue-50 to-emerald-50 px-4 py-12">
-                <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 text-center max-w-md w-full animate-fadeIn">
+            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-emerald-50 dark:from-slate-900 dark:to-slate-800 px-4 py-12 transition-colors duration-300">
+                <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-2xl p-8 md:p-12 text-center max-w-md w-full animate-fadeIn border border-gray-100 dark:border-slate-700">
                     <div className="relative">
                         <div className="w-24 h-24 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6 animate-bounce">
                             <CheckCircle size={48} className="text-white" />
@@ -123,13 +123,13 @@ const Appointment = () => {
                         </div>
                     </div>
 
-                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Appointment Booked! 🎉</h2>
+                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">Appointment Booked! 🎉</h2>
 
-                    <div className="bg-gradient-to-r from-blue-50 to-emerald-50 rounded-2xl p-6 mb-8">
-                        <p className="text-lg font-semibold text-gray-800 mb-2">
+                    <div className="bg-gradient-to-r from-blue-50 to-emerald-50 dark:from-slate-700 dark:to-slate-600 rounded-2xl p-6 mb-8 text-left dark:text-gray-100">
+                        <p className="text-lg font-semibold text-gray-800 dark:text-white mb-2 text-center">
                             {formData.name}
                         </p>
-                        <div className="space-y-3 text-sm text-gray-600">
+                        <div className="space-y-3 text-sm text-gray-600 dark:text-gray-200">
                             <div className="flex items-center justify-center gap-2">
                                 <Phone size={16} />
                                 <span className="font-medium">{formData.phone}</span>
@@ -146,16 +146,16 @@ const Appointment = () => {
                     </div>
 
                     <div className="space-y-4 mb-8">
-                        <p className="text-gray-600">
+                        <p className="text-gray-600 dark:text-gray-400">
                             Our team will contact you within <strong>30 minutes</strong> to confirm your appointment.
                         </p>
 
-                        <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg text-left">
-                            <p className="text-sm font-medium text-gray-800 flex items-center gap-2 mb-2">
+                        <div className="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 p-4 rounded-r-lg text-left">
+                            <p className="text-sm font-medium text-gray-800 dark:text-gray-200 flex items-center gap-2 mb-2">
                                 <Clock size={16} />
                                 <span>What's next:</span>
                             </p>
-                            <ul className="text-xs text-gray-600 space-y-1 pl-6 list-disc">
+                            <ul className="text-xs text-gray-600 dark:text-gray-400 space-y-1 pl-6 list-disc">
                                 <li>Confirmation call within 30 minutes</li>
                                 <li>SMS reminder 24 hours before</li>
                                 <li>Digital health form via WhatsApp</li>
@@ -176,7 +176,7 @@ const Appointment = () => {
                         </button>
                         <button
                             onClick={() => window.print()}
-                            className="px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-xl font-medium hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
+                            className="px-6 py-3 border-2 border-gray-300 dark:border-slate-600 text-gray-700 dark:text-gray-300 rounded-xl font-medium hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors flex items-center justify-center gap-2"
                         >
                             <FileText size={18} />
                             Print
@@ -188,18 +188,18 @@ const Appointment = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-white to-blue-50 py-8 md:py-12 px-4">
+        <div className="min-h-screen bg-gradient-to-b from-white to-blue-50 dark:from-slate-900 dark:to-slate-800 py-8 md:py-12 px-4 transition-colors duration-300">
             <div className="container mx-auto max-w-6xl">
                 {/* Header */}
                 <div className="text-center mb-10 md:mb-14">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-600 rounded-full text-sm font-bold mb-4">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full text-sm font-bold mb-4">
                         <Sparkles size={16} />
                         Book Your Smile Transformation
                     </div>
-                    <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                        Schedule Your <span className="text-blue-600">Appointment</span>
+                    <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                        Schedule Your <span className="text-blue-600 dark:text-blue-400">Appointment</span>
                     </h1>
-                    <p className="text-gray-600 max-w-2xl mx-auto">
+                    <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
                         Secure your spot with expert dental care. Easy booking, flexible timing.
                     </p>
                 </div>
@@ -208,28 +208,28 @@ const Appointment = () => {
                     {/* Left Info Panel */}
                     <div className="lg:col-span-1 space-y-6">
                         {/* Trust Badges */}
-                        <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+                        <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-slate-700">
                             <div className="flex items-center gap-3 mb-6">
-                                <div className="p-2 bg-green-100 rounded-lg">
-                                    <Shield size={22} className="text-green-600" />
+                                <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
+                                    <Shield size={22} className="text-green-600 dark:text-green-400" />
                                 </div>
                                 <div>
-                                    <h3 className="font-bold text-gray-900 text-lg">Safe & Secure</h3>
-                                    <p className="text-sm text-gray-600">JCI Accredited Clinic</p>
+                                    <h3 className="font-bold text-gray-900 dark:text-white text-lg">Safe & Secure</h3>
+                                    <p className="text-sm text-gray-600 dark:text-gray-400">JCI Accredited Clinic</p>
                                 </div>
                             </div>
                             <div className="space-y-4">
                                 <div className="flex items-center justify-between">
-                                    <span className="text-gray-600">Success Rate</span>
-                                    <span className="font-bold text-green-600">98%</span>
+                                    <span className="text-gray-600 dark:text-gray-400">Success Rate</span>
+                                    <span className="font-bold text-green-600 dark:text-green-400">98%</span>
                                 </div>
                                 <div className="flex items-center justify-between">
-                                    <span className="text-gray-600">Patient Satisfaction</span>
-                                    <span className="font-bold text-blue-600">4.9/5</span>
+                                    <span className="text-gray-600 dark:text-gray-400">Patient Satisfaction</span>
+                                    <span className="font-bold text-blue-600 dark:text-blue-400">4.9/5</span>
                                 </div>
                                 <div className="flex items-center justify-between">
-                                    <span className="text-gray-600">Same Day Slots</span>
-                                    <span className="font-bold text-purple-600">Available</span>
+                                    <span className="text-gray-600 dark:text-gray-400">Same Day Slots</span>
+                                    <span className="font-bold text-purple-600 dark:text-purple-400">Available</span>
                                 </div>
                             </div>
                         </div>
@@ -260,17 +260,17 @@ const Appointment = () => {
                         </div>
 
                         {/* Location Info */}
-                        <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+                        <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-slate-700">
                             <div className="flex items-center gap-3 mb-4">
-                                <div className="p-2 bg-blue-100 rounded-lg">
-                                    <MapPin size={22} className="text-blue-600" />
+                                <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
+                                    <MapPin size={22} className="text-blue-600 dark:text-blue-400" />
                                 </div>
                                 <div>
-                                    <h3 className="font-bold text-gray-900">Our Location</h3>
-                                    <p className="text-sm text-gray-600">Easy to reach</p>
+                                    <h3 className="font-bold text-gray-900 dark:text-white">Our Location</h3>
+                                    <p className="text-sm text-gray-600 dark:text-gray-400">Easy to reach</p>
                                 </div>
                             </div>
-                            <div className="space-y-2 text-sm text-gray-600">
+                            <div className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
                                 <p>📍 123 Dental Street</p>
                                 <p>🏙️ Surat, Gujarat</p>
                                 <p>📅 Mon-Sat: 9AM-9PM</p>
@@ -281,9 +281,9 @@ const Appointment = () => {
 
                     {/* Booking Form */}
                     <div className="lg:col-span-2">
-                        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100">
+                        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl overflow-hidden border border-gray-100 dark:border-slate-700">
                             {/* Form Header */}
-                            <div className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white p-6 md:p-8">
+                            <div className="bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-700 dark:to-cyan-700 text-white p-6 md:p-8">
                                 <div className="flex items-center justify-between">
                                     <div>
                                         <h2 className="text-2xl md:text-3xl font-bold">Book Appointment</h2>
@@ -304,7 +304,7 @@ const Appointment = () => {
                                 <div className="grid md:grid-cols-2 gap-6 mb-8">
                                     {/* Name */}
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
+                                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 flex items-center gap-2">
                                             <User size={16} />
                                             Full Name *
                                         </label>
@@ -314,14 +314,14 @@ const Appointment = () => {
                                             required
                                             value={formData.name}
                                             onChange={handleChange}
-                                            className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                                            className="w-full px-4 py-3 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 dark:text-white transition-all placeholder-gray-400 dark:placeholder-gray-600"
                                             placeholder="John Doe"
                                         />
                                     </div>
 
                                     {/* Phone */}
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
+                                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 flex items-center gap-2">
                                             <Phone size={16} />
                                             Phone Number *
                                         </label>
@@ -331,14 +331,14 @@ const Appointment = () => {
                                             required
                                             value={formData.phone}
                                             onChange={handleChange}
-                                            className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                                            className="w-full px-4 py-3 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 dark:text-white transition-all placeholder-gray-400 dark:placeholder-gray-600"
                                             placeholder="+91 98765 43210"
                                         />
                                     </div>
 
                                     {/* Email */}
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                             Email Address
                                         </label>
                                         <input
@@ -346,14 +346,14 @@ const Appointment = () => {
                                             name="email"
                                             value={formData.email}
                                             onChange={handleChange}
-                                            className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                                            className="w-full px-4 py-3 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 dark:text-white transition-all placeholder-gray-400 dark:placeholder-gray-600"
                                             placeholder="email@example.com"
                                         />
                                     </div>
 
                                     {/* Date */}
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
+                                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 flex items-center gap-2">
                                             <Calendar size={16} />
                                             Preferred Date *
                                         </label>
@@ -363,7 +363,7 @@ const Appointment = () => {
                                             required
                                             value={formData.date}
                                             onChange={handleChange}
-                                            className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all text-gray-700"
+                                            className="w-full px-4 py-3 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all text-gray-900 dark:text-white"
                                             min={new Date().toISOString().split('T')[0]}
                                         />
                                     </div>
@@ -371,7 +371,7 @@ const Appointment = () => {
 
                                 {/* Treatment Selection */}
                                 <div className="mb-8">
-                                    <label className="block text-sm font-medium text-gray-700 mb-4">
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-4">
                                         Select Treatment *
                                     </label>
                                     <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
@@ -380,16 +380,16 @@ const Appointment = () => {
                                                 key={index}
                                                 type="button"
                                                 onClick={() => setFormData({ ...formData, treatment: treatment.value })}
-                                                className={`p-4 rounded-xl border-2 text-left transition-all duration-300 ${formData.treatment === treatment.value ? 'border-blue-500 bg-blue-50 shadow-sm' : 'border-gray-200 hover:border-blue-300 hover:shadow-sm'}`}
+                                                className={`p-4 rounded-xl border-2 text-left transition-all duration-300 ${formData.treatment === treatment.value ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/40 shadow-sm' : 'border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-900 hover:border-blue-300 dark:hover:border-blue-500 hover:shadow-sm'}`}
                                             >
                                                 <div className="flex items-start justify-between mb-2">
                                                     <span className="text-2xl">{treatment.icon}</span>
-                                                    <span className="text-xs font-bold text-blue-600 bg-blue-100 px-2 py-1 rounded-full">
+                                                    <span className="text-xs font-bold text-blue-600 dark:text-blue-400 bg-blue-100 dark:bg-blue-900/50 px-2 py-1 rounded-full">
                                                         {treatment.price}
                                                     </span>
                                                 </div>
-                                                <p className="font-medium text-gray-900 text-sm">{treatment.value}</p>
-                                                <p className="text-xs text-gray-500 mt-1">{treatment.duration}</p>
+                                                <p className={`font-medium text-sm ${formData.treatment === treatment.value ? 'text-blue-900 dark:text-blue-100' : 'text-gray-900 dark:text-white'}`}>{treatment.value}</p>
+                                                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{treatment.duration}</p>
                                             </button>
                                         ))}
                                     </div>
@@ -399,7 +399,7 @@ const Appointment = () => {
                                 <div className="grid md:grid-cols-2 gap-6 mb-8">
                                     {/* Time Selection */}
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                             Preferred Time *
                                         </label>
                                         <div className="relative">
@@ -407,7 +407,7 @@ const Appointment = () => {
                                                 name="time"
                                                 value={formData.time}
                                                 onChange={handleChange}
-                                                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all appearance-none"
+                                                className="w-full px-4 py-3 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 dark:text-white transition-all appearance-none"
                                             >
                                                 {timeSlots.map((time, index) => (
                                                     <option key={index} value={time}>{time}</option>
@@ -419,7 +419,7 @@ const Appointment = () => {
 
                                     {/* Urgency Level */}
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                             Urgency Level
                                         </label>
                                         <div className="grid grid-cols-3 gap-2">
@@ -428,7 +428,7 @@ const Appointment = () => {
                                                     key={level.value}
                                                     type="button"
                                                     onClick={() => setFormData({ ...formData, urgency: level.value })}
-                                                    className={`py-3 rounded-xl border-2 text-sm font-medium transition-all flex flex-col items-center ${formData.urgency === level.value ? level.color + ' border-current' : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'}`}
+                                                    className={`py-3 rounded-xl border-2 text-sm font-medium transition-all flex flex-col items-center ${formData.urgency === level.value ? level.color + ' border-current' : 'border-gray-200 dark:border-slate-700 dark:text-gray-300 hover:border-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700'}`}
                                                 >
                                                     <span className="text-xl mb-1">{level.icon}</span>
                                                     <span>{level.label}</span>
@@ -440,7 +440,7 @@ const Appointment = () => {
 
                                 {/* Additional Message */}
                                 <div className="mb-8">
-                                    <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 flex items-center gap-2">
                                         <FileText size={16} />
                                         Additional Message (Optional)
                                     </label>
@@ -449,7 +449,7 @@ const Appointment = () => {
                                         rows="4"
                                         value={formData.message}
                                         onChange={handleChange}
-                                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all resize-none"
+                                        className="w-full px-4 py-3 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all resize-none text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600"
                                         placeholder="Describe your concern or special requirements..."
                                     ></textarea>
                                 </div>
@@ -475,9 +475,9 @@ const Appointment = () => {
                                 </button>
 
                                 {/* Terms */}
-                                <p className="text-xs text-gray-500 text-center mt-6">
+                                <p className="text-xs text-gray-500 dark:text-gray-400 text-center mt-6">
                                     By booking, you agree to our Terms of Service and Privacy Policy.
-                                    <span className="block text-green-600 font-medium mt-1">No advance payment required.</span>
+                                    <span className="block text-green-600 dark:text-green-400 font-medium mt-1">No advance payment required.</span>
                                 </p>
                             </form>
                         </div>
@@ -485,20 +485,20 @@ const Appointment = () => {
                 </div>
 
                 {/* Stats Footer */}
-                <div className="mt-12 pt-8 border-t border-gray-200">
+                <div className="mt-12 pt-8 border-t border-gray-200 dark:border-slate-700">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                         {[
-                            { value: "98%", label: "Success Rate", icon: Star, color: "text-blue-600" },
-                            { value: "24/7", label: "Emergency Care", icon: Clock, color: "text-emerald-600" },
-                            { value: "30K+", label: "Happy Patients", icon: Award, color: "text-purple-600" },
-                            { value: "4.9★", label: "Google Rating", icon: Star, color: "text-amber-600" }
+                            { value: "98%", label: "Success Rate", icon: Star, color: "text-blue-600 dark:text-blue-400" },
+                            { value: "24/7", label: "Emergency Care", icon: Clock, color: "text-emerald-600 dark:text-emerald-400" },
+                            { value: "30K+", label: "Happy Patients", icon: Award, color: "text-purple-600 dark:text-purple-400" },
+                            { value: "4.9★", label: "Google Rating", icon: Star, color: "text-amber-600 dark:text-amber-400" }
                         ].map((stat, index) => (
                             <div key={index} className="text-center">
                                 <div className={`text-3xl font-bold ${stat.color} flex items-center justify-center gap-2 mb-2`}>
                                     <stat.icon size={24} />
                                     {stat.value}
                                 </div>
-                                <div className="text-sm text-gray-600">{stat.label}</div>
+                                <div className="text-sm text-gray-600 dark:text-gray-400">{stat.label}</div>
                             </div>
                         ))}
                     </div>
