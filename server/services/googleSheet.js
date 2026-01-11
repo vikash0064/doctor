@@ -62,10 +62,16 @@ const appendToSheet = async (data) => {
 
     } catch (error) {
         console.error('Google Sheet Error Detail:', error.message);
+        console.error('Service Account Used:', (process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL || 'Unknown'));
+
         if (error.message.includes('API has not been used')) {
             console.error('ACTION REQUIRED: You must enable the Google Sheets API in the Google Cloud Console.');
             console.error('Visit: https://console.developers.google.com/apis/api/sheets.googleapis.com/overview');
         }
+        if (error.message.includes('403') || error.message.includes('permission')) {
+            console.error('ACTION REQUIRED: Please share the sheet with:', process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL);
+        }
+
         // Don't re-throw if called in background to avoid unhandled promise rejection
         // but it's already caught in server.js
         throw error;
