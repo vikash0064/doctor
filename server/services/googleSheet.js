@@ -25,11 +25,20 @@ const appendToSheet = async (data) => {
         });
 
         // Initialize Doc
-        const doc = new GoogleSpreadsheet(process.env.GOOGLE_SHEET_ID, serviceAccountAuth);
+        const sheetId = (process.env.GOOGLE_SHEET_ID || "").trim();
+        console.log('Connecting to Google Sheet ID:', sheetId);
+        const doc = new GoogleSpreadsheet(sheetId, serviceAccountAuth);
 
         await doc.loadInfo();
+        console.log('Document loaded:', doc.title);
 
+        // Get the first sheet OR a sheet named 'Sheet1'
         let sheet = doc.sheetsByIndex[0];
+        if (!sheet) {
+            console.error('No sheets found in this document!');
+            throw new Error('No sheets found in Google Spreadsheet');
+        }
+        console.log('Using sheet:', sheet.title);
 
         // Ensure headers are set correctly for all fields
         const headers = ['Name', 'Phone', 'Email', 'Treatment', 'Date', 'Time', 'Urgency', 'Message', 'SubmittedAt'];
