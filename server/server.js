@@ -119,34 +119,59 @@ app.post('/api/testimonials', upload.single('media'), async (req, res) => {
 app.post('/api/appointments', async (req, res) => {
     try {
         console.log('Incoming appointment request:', req.body);
-        const { name, phone, treatment, date, message } = req.body;
+        const { name, phone, email, treatment, date, time, message, urgency } = req.body;
 
         if (!name || !phone) {
             return res.status(400).json({ error: 'Name and Phone are required' });
         }
 
         // Save to MongoDB
-        const newAppointment = new Appointment({ name, phone, treatment, date, message });
+        const newAppointment = new Appointment({ name, phone, email, treatment, date, time, message, urgency });
         await newAppointment.save();
-        console.log('Appointment saved to DB');
+        console.log('Appointment saved to MongoDB');
 
-        // Append to Google Sheet (async)
-        appendToSheet({ name, phone, treatment, date, message });
+        // Sync with external services
+        let sheetStatus = 'Pending';
+        let emailStatus = 'Pending';
 
-        // Send Email Notification (async)
-        sendAppointmentEmail({ name, phone, treatment, date, message });
+        try {
+            await appendToSheet({ name, phone, email, treatment, date, time, message, urgency });
+            sheetStatus = 'Success';
+        } catch (sheetErr) {
+            console.error('Google Sheet Sync Failed:', sheetErr.message);
+            sheetStatus = `Failed: ${sheetErr.message}`;
+        }
 
-        res.status(201).json({ success: true, message: 'Appointment booked successfully' });
+        try {
+            await sendAppointmentEmail({ name, phone, email, treatment, date, time, message, urgency });
+            emailStatus = 'Success';
+        } catch (emailErr) {
+            console.error('Email Notification Failed:', emailErr.message);
+            emailStatus = `Failed: ${emailErr.message}`;
+        }
+
+        res.status(201).json({
+            success: true,
+            message: 'Appointment booked successfully',
+            data: newAppointment,
+            syncStatus: {
+                googleSheet: sheetStatus,
+                email: emailStatus
+            }
+        });
     } catch (err) {
-        console.error('Booking API Error:', err.message);
-        res.status(500).json({ error: 'Database error or server failure', details: err.message });
+        console.error('Core Booking API Error:', err.message);
+        res.status(500).json({
+            error: 'Database error or server failure',
+            details: err.message
+        });
     }
 });
 
 // 4. Get All Appointments (Frontend: Admin Dashboard)
 app.get('/api/appointments', async (req, res) => {
     try {
-        const appointments = await Appointment.find().sort({ date: -1 });
+        const appointments = await Appointment.find().sort({ createdAt: -1 });
         res.json(appointments);
     } catch (err) {
         res.status(500).json({ error: err.message });

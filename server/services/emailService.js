@@ -15,43 +15,51 @@ const sendAppointmentEmail = async (data) => {
         }
     });
 
-    const { name, phone, treatment, date, message } = data;
+    const { name, phone, email, treatment, date, time, message, urgency } = data;
 
     // Email content for Admin
     const mailOptions = {
         from: process.env.EMAIL_USER,
-        to: process.env.ADMIN_EMAIL || process.env.EMAIL_USER, // Default to self if no admin email specified
+        to: process.env.ADMIN_EMAIL || process.env.EMAIL_USER,
         subject: `New Appointment Request - ${name}`,
         html: `
-            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
-                <h2 style="color: #1a56db;">New Appointment Request</h2>
-                <p>You have received a new appointment booking from the website.</p>
+            <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 25px; border: 1px solid #e2e8f0; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+                <h2 style="color: #2563eb; margin-bottom: 20px; text-align: center;">New Appointment Request</h2>
+                <div style="background: #f8fafc; padding: 20px; border-radius: 12px;">
+                    <table style="width: 100%; border-collapse: separate; border-spacing: 0 10px;">
+                        <tr>
+                            <td style="font-weight: bold; color: #64748b; width: 40%;">Patient Name</td>
+                            <td style="color: #1e293b;">${name}</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold; color: #64748b;">Phone No</td>
+                            <td style="color: #1e293b;"><a href="tel:${phone}" style="color: #2563eb; text-decoration: none;">${phone}</a></td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold; color: #64748b;">Email</td>
+                            <td style="color: #1e293b;">${email || 'Not provided'}</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold; color: #64748b;">Treatment</td>
+                            <td style="background: #dcfce7; color: #166534; padding: 4px 12px; border-radius: 9999px; font-size: 13px; font-weight: bold;">${treatment}</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold; color: #64748b;">Date & Time</td>
+                            <td style="color: #1e293b;">${date} at ${time}</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold; color: #64748b;">Urgency</td>
+                            <td style="${urgency === 'emergency' ? 'color: #ef4444; font-weight: bold;' : 'color: #1e293b;'}">${urgency.toUpperCase()}</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold; color: #64748b; vertical-align: top;">Message</td>
+                            <td style="color: #1e293b; line-height: 1.5;">${message || 'N/A'}</td>
+                        </tr>
+                    </table>
+                </div>
                 
-                <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
-                    <tr style="background-color: #f8fafc;">
-                        <td style="padding: 10px; border: 1px solid #e2e8f0; font-weight: bold;">Name</td>
-                        <td style="padding: 10px; border: 1px solid #e2e8f0;">${name}</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 10px; border: 1px solid #e2e8f0; font-weight: bold;">Phone</td>
-                        <td style="padding: 10px; border: 1px solid #e2e8f0;">${phone}</td>
-                    </tr>
-                    <tr style="background-color: #f8fafc;">
-                        <td style="padding: 10px; border: 1px solid #e2e8f0; font-weight: bold;">Treatment</td>
-                        <td style="padding: 10px; border: 1px solid #e2e8f0;">${treatment}</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 10px; border: 1px solid #e2e8f0; font-weight: bold;">Preferred Date</td>
-                        <td style="padding: 10px; border: 1px solid #e2e8f0;">${date}</td>
-                    </tr>
-                    <tr style="background-color: #f8fafc;">
-                        <td style="padding: 10px; border: 1px solid #e2e8f0; font-weight: bold;">Message</td>
-                        <td style="padding: 10px; border: 1px solid #e2e8f0;">${message || 'N/A'}</td>
-                    </tr>
-                </table>
-                
-                <div style="margin-top: 20px; text-align: center; color: #64748b; font-size: 12px;">
-                    <p>This is an automated notification from your Dental Clinic Website.</p>
+                <div style="margin-top: 25px; text-align: center; color: #94a3b8; font-size: 13px; border-top: 1px solid #f1f5f9; pt: 20px;">
+                    <p>Generated by Dent O Care Website Portal</p>
                 </div>
             </div>
         `
@@ -62,6 +70,7 @@ const sendAppointmentEmail = async (data) => {
         console.log(`Notification email sent to ${mailOptions.to}`);
     } catch (error) {
         console.error('Email Sending Error:', error);
+        throw error;
     }
 };
 

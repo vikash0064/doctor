@@ -25,16 +25,22 @@ const appendToSheet = async (data) => {
 
         let sheet = doc.sheetsByIndex[0];
 
-        // If sheet is empty, set headers
+        // Ensure headers are set correctly for all fields
+        const headers = ['Name', 'Phone', 'Email', 'Treatment', 'Date', 'Time', 'Urgency', 'Message', 'SubmittedAt'];
+
+        // Attempt to set headers if they don't look right (simple check)
         if (sheet.rowCount <= 1) {
-            await sheet.setHeaderRow(['Name', 'Phone', 'Treatment', 'Date', 'Message', 'SubmittedAt']);
+            await sheet.setHeaderRow(headers);
         }
 
         await sheet.addRow({
             Name: data.name || '',
             Phone: data.phone || '',
+            Email: data.email || '',
             Treatment: data.treatment || '',
             Date: data.date || '',
+            Time: data.time || '',
+            Urgency: data.urgency || '',
             Message: data.message || '',
             SubmittedAt: new Date().toLocaleString()
         });
@@ -42,8 +48,8 @@ const appendToSheet = async (data) => {
         console.log('Successfully appended row to Google Sheet');
 
     } catch (error) {
-        console.error('Google Sheet Error:', error.message);
-        // Do not crash the server if sheet fails
+        console.error('Google Sheet Error Detail:', error);
+        throw error; // Re-throw to handle in the route
     }
 };
 
