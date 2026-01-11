@@ -18,7 +18,9 @@ const PORT = process.env.PORT || 5000;
 const allowedOrigins = [
     'https://dentocare-frontend.onrender.com',
     'http://localhost:5173',
+    'http://localhost:5174',
     'http://localhost:3000',
+    'http://localhost:3001',
     'http://localhost:4173'
 ];
 
@@ -56,11 +58,17 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // MongoDB Connection
-// Note: For user's machine, assuming local mongo if no URI provided in env.
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/dentocare';
-mongoose.connect(MONGO_URI)
-    .then(() => console.log('MongoDB Connected'))
-    .catch(err => console.log(err));
+const MONGO_URI = process.env.MONGO_URI;
+
+if (!MONGO_URI) {
+    console.error('CRITICAL ERROR: MONGO_URI is not defined in environment variables!');
+}
+
+mongoose.connect(MONGO_URI || 'mongodb://localhost:27017/dentocare')
+    .then(() => console.log('MongoDB Connected successfully to:', MONGO_URI ? 'Remote' : 'Localhost'))
+    .catch(err => {
+        console.error('MongoDB Connection Error:', err.message);
+    });
 
 
 // --- ROUTES ---
@@ -110,22 +118,28 @@ app.post('/api/testimonials', upload.single('media'), async (req, res) => {
 // 3. Book Appointment (Frontend: Appointment)
 app.post('/api/appointments', async (req, res) => {
     try {
+        console.log('Incoming appointment request:', req.body);
         const { name, phone, treatment, date, message } = req.body;
+
+        if (!name || !phone) {
+            return res.status(400).json({ error: 'Name and Phone are required' });
+        }
 
         // Save to MongoDB
         const newAppointment = new Appointment({ name, phone, treatment, date, message });
         await newAppointment.save();
+        console.log('Appointment saved to DB');
 
-        // Append to Google Sheet (async, don't block response)
+        // Append to Google Sheet (async)
         appendToSheet({ name, phone, treatment, date, message });
 
         // Send Email Notification (async)
         sendAppointmentEmail({ name, phone, treatment, date, message });
 
-        res.status(201).json({ message: 'Appointment booked successfully' });
+        res.status(201).json({ success: true, message: 'Appointment booked successfully' });
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Failed to book appointment' });
+        console.error('Booking API Error:', err.message);
+        res.status(500).json({ error: 'Database error or server failure', details: err.message });
     }
 });
 

@@ -84,11 +84,12 @@ const Appointment = () => {
                     setIsSubmitted(true);
                 }, 1500);
             } else {
-                throw new Error('Booking failed');
+                const errorData = await res.json().catch(() => ({}));
+                throw new Error(errorData.error || errorData.details || 'Booking failed');
             }
         } catch (err) {
-            console.error(err);
-            alert("Failed to book. Ensure backend is running.");
+            console.error('Booking error:', err);
+            alert(`Failed to book: ${err.message}. Ensure your MONGO_URI is set in the Render Dashboard.`);
             setIsLoading(false);
         }
     };
