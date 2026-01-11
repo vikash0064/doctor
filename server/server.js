@@ -25,16 +25,10 @@ const allowedOrigins = [
 ];
 
 app.use(cors({
-    origin: function (origin, callback) {
-        // allow requests with no origin (like mobile apps or curl requests)
-        if (!origin) return callback(null, true);
-        if (allowedOrigins.indexOf(origin) === -1) {
-            const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-            return callback(new Error(msg), false);
-        }
-        return callback(null, true);
-    },
-    credentials: true
+    origin: true, // Allow all origins during debugging
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json());
 // Serve static files (uploads)
@@ -130,34 +124,19 @@ app.post('/api/appointments', async (req, res) => {
         await newAppointment.save();
         console.log('Appointment saved to MongoDB');
 
-        // Sync with external services
-        let sheetStatus = 'Pending';
-        let emailStatus = 'Pending';
+        // Sync with external services (Back to non-blocking to avoid Render timeouts)
+        appendToSheet({ name, phone, email, treatment, date, time, message, urgency })
+            .then(() => console.log('Sheet sync successful'))
+            .catch(err => console.error('Sheet sync failed:', err.message));
 
-        try {
-            await appendToSheet({ name, phone, email, treatment, date, time, message, urgency });
-            sheetStatus = 'Success';
-        } catch (sheetErr) {
-            console.error('Google Sheet Sync Failed:', sheetErr.message);
-            sheetStatus = `Failed: ${sheetErr.message}`;
-        }
-
-        try {
-            await sendAppointmentEmail({ name, phone, email, treatment, date, time, message, urgency });
-            emailStatus = 'Success';
-        } catch (emailErr) {
-            console.error('Email Notification Failed:', emailErr.message);
-            emailStatus = `Failed: ${emailErr.message}`;
-        }
+        sendAppointmentEmail({ name, phone, email, treatment, date, time, message, urgency })
+            .then(() => console.log('Email sync successful'))
+            .catch(err => console.error('Email sync failed:', err.message));
 
         res.status(201).json({
             success: true,
-            message: 'Appointment booked successfully',
-            data: newAppointment,
-            syncStatus: {
-                googleSheet: sheetStatus,
-                email: emailStatus
-            }
+            message: 'Appointment recorded in database. Syncing with Email and Sheets in background.',
+            data: newAppointment
         });
     } catch (err) {
         console.error('Core Booking API Error:', err.message);

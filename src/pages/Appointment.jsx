@@ -72,6 +72,7 @@ const Appointment = () => {
         setIsLoading(true);
 
         try {
+            console.log('Attempting to book at:', API_ENDPOINTS.appointments);
             const res = await fetch(API_ENDPOINTS.appointments, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
