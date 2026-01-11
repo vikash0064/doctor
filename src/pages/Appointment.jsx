@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, User, Phone, FileText, CheckCircle, Clock, MapPin, Shield, Star, ChevronRight, Award, MessageCircle, Sparkles } from 'lucide-react';
+import { API_ENDPOINTS } from '../config';
 
 const Appointment = () => {
     const [formData, setFormData] = useState({

@@ -1,23 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { Play, Star, MapPin, Calendar, Volume2, VolumeX, ChevronLeft, ChevronRight, X, Shield, CheckCircle, Users, Heart } from 'lucide-react';
+import { API_ENDPOINTS } from '../config';
 
 const PatientSpeaks = () => {
     const [testimonials, setTestimonials] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [selectedMedia, setSelectedMedia] = useState(null);
     const [isPlaying, setIsPlaying] = useState(false);
     const [isMuted, setIsMuted] = useState(true);
     const [showAll, setShowAll] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    // Sample testimonials data
+    // Sample testimonials data (will be used if fetch fails)
     const sampleTestimonials = [
         {
             id: 1,
-            name: "Aarav Patel",
+            patientName: "Aarav Patel",
             age: 28,
             location: "Adajan, Surat",
             treatment: "Invisalign Treatment",
-            review: "I was hesitant about braces, but the invisible aligners changed everything. Dr. Nimisha made the process so smooth!",
+            reviewText: "I was hesitant about braces, but the invisible aligners changed everything. Dr. Nimisha made the process so smooth!",
             rating: 5,
             date: "2 Weeks ago",
             mediaType: "video",
@@ -27,11 +29,11 @@ const PatientSpeaks = () => {
         },
         {
             id: 2,
-            name: "Priya Shah",
+            patientName: "Priya Shah",
             age: 32,
             location: "Vesu, Surat",
             treatment: "Dental Implants",
-            review: "Finally got my smile back! The implant procedure was painless and the results are incredibly natural.",
+            reviewText: "Finally got my smile back! The implant procedure was painless and the results are incredibly natural.",
             rating: 5,
             date: "1 Month ago",
             mediaType: "image",
@@ -40,63 +42,43 @@ const PatientSpeaks = () => {
         },
         {
             id: 3,
-            name: "Rahul Mehta",
+            patientName: "Rahul Mehta",
             age: 45,
             location: "Palanpur, Surat",
             treatment: "Root Canal",
-            review: "Hands down the best dental clinic. Zero pain during my RCT. The technology they use is top-notch.",
+            reviewText: "Hands down the best dental clinic. Zero pain during my RCT. The technology they use is top-notch.",
             rating: 5,
             date: "3 Weeks ago",
             mediaType: "video",
             mediaUrl: "https://assets.mixkit.co/videos/preview/mixkit-man-having-a-dental-check-up-40697-large.mp4",
             thumbnail: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
             isVerified: true
-        },
-        {
-            id: 4,
-            name: "Anjali Gupta",
-            age: 26,
-            location: "Rander, Surat",
-            treatment: "Smile Makeover",
-            review: "My wedding smile design was perfect. Thank you Dr. Modi for your artistic work!",
-            rating: 5,
-            date: "2 Months ago",
-            mediaType: "image",
-            mediaUrl: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-            isVerified: true
-        },
-        {
-            id: 5,
-            name: "Sanjay Kumar",
-            age: 38,
-            location: "Athwa, Surat",
-            treatment: "Teeth Whitening",
-            review: "Professional service and amazing results. My confidence has increased tremendously!",
-            rating: 5,
-            date: "1 Week ago",
-            mediaType: "video",
-            mediaUrl: "https://assets.mixkit.co/videos/preview/mixkit-dentist-showing-teeth-models-to-patient-40695-large.mp4",
-            thumbnail: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-            isVerified: true
-        },
-        {
-            id: 6,
-            name: "Neha Sharma",
-            age: 29,
-            location: "Varachha, Surat",
-            treatment: "Dental Crowns",
-            review: "Excellent work! The crown looks so natural that even my family couldn't tell the difference.",
-            rating: 5,
-            date: "3 Months ago",
-            mediaType: "image",
-            mediaUrl: "https://images.unsplash.com/photo-1564420228450-d4c18b6d42ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-            isVerified: true
         }
     ];
 
     useEffect(() => {
-        setTestimonials(sampleTestimonials);
+        const fetchTestimonials = async () => {
+            try {
+                const response = await fetch(API_ENDPOINTS.testimonials);
+                if (!response.ok) throw new Error('Failed to fetch');
+                const data = await response.json();
+
+                if (data && data.length > 0) {
+                    setTestimonials(data);
+                } else {
+                    setTestimonials(sampleTestimonials);
+                }
+            } catch (error) {
+                console.error('Error fetching testimonials:', error);
+                setTestimonials(sampleTestimonials);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchTestimonials();
     }, []);
+
 
     const openMediaViewer = (testimonial, index) => {
         setSelectedMedia(testimonial);
@@ -233,12 +215,14 @@ const PatientSpeaks = () => {
                             <div className="p-3">
                                 <div className="flex items-start justify-between mb-1">
                                     <div>
-                                        <h3 className="font-bold text-gray-900 dark:text-white text-sm">{testimonial.name}, {testimonial.age}</h3>
+                                        <h3 className="font-bold text-gray-900 dark:text-white text-sm">
+                                            {testimonial.patientName}{testimonial.age ? `, ${testimonial.age}` : ''}
+                                        </h3>
                                         <p className="text-xs text-blue-600 dark:text-blue-400 font-medium">{testimonial.treatment}</p>
                                     </div>
                                     <div className="flex items-center gap-0.5">
                                         <Star size={12} className="text-yellow-400 fill-yellow-400" />
-                                        <span className="text-xs font-medium text-gray-700 dark:text-gray-300">{testimonial.rating}.0</span>
+                                        <span className="text-xs font-medium text-gray-700 dark:text-gray-300">{testimonial.rating || 5}.0</span>
                                     </div>
                                 </div>
 
@@ -250,12 +234,12 @@ const PatientSpeaks = () => {
                                     <span className="w-1 h-1 bg-gray-300 dark:bg-gray-600 rounded-full"></span>
                                     <span className="flex items-center gap-1">
                                         <Calendar size={10} />
-                                        {testimonial.date}
+                                        {typeof testimonial.date === 'string' ? testimonial.date : new Date(testimonial.date).toLocaleDateString()}
                                     </span>
                                 </div>
 
                                 <p className="text-xs text-gray-600 dark:text-gray-400 line-clamp-2 italic">
-                                    "{testimonial.review}"
+                                    "{testimonial.reviewText}"
                                 </p>
                             </div>
                         </div>
@@ -352,16 +336,18 @@ const PatientSpeaks = () => {
                         <div className="bg-white p-4 md:p-6">
                             <div className="flex flex-col md:flex-row md:items-start justify-between mb-3 gap-3">
                                 <div>
-                                    <h3 className="font-bold text-lg text-gray-900">{selectedMedia.name}, {selectedMedia.age}</h3>
+                                    <h3 className="font-bold text-lg text-gray-900">
+                                        {selectedMedia.patientName}{selectedMedia.age ? `, ${selectedMedia.age}` : ''}
+                                    </h3>
                                     <p className="text-blue-600 font-medium">{selectedMedia.treatment}</p>
                                 </div>
                                 <div className="flex items-center gap-2">
                                     <div className="flex">
                                         {[...Array(5)].map((_, i) => (
-                                            <Star key={i} size={16} className="text-yellow-400 fill-yellow-400" />
+                                            <Star key={i} size={i < (selectedMedia.rating || 5) ? 16 : 0} className="text-yellow-400 fill-yellow-400" />
                                         ))}
                                     </div>
-                                    <span className="text-sm font-medium text-gray-700">5.0</span>
+                                    <span className="text-sm font-medium text-gray-700">{(selectedMedia.rating || 5).toFixed(1)}</span>
                                 </div>
                             </div>
 
@@ -372,12 +358,12 @@ const PatientSpeaks = () => {
                                 </span>
                                 <span className="flex items-center gap-1">
                                     <Calendar size={14} />
-                                    {selectedMedia.date}
+                                    {typeof selectedMedia.date === 'string' ? selectedMedia.date : new Date(selectedMedia.date).toLocaleDateString()}
                                 </span>
                             </div>
 
                             <blockquote className="text-gray-700 text-sm md:text-base italic border-l-4 border-blue-500 pl-4 py-2 bg-blue-50/50 rounded-r-lg">
-                                "{selectedMedia.review}"
+                                "{selectedMedia.reviewText}"
                             </blockquote>
                         </div>
                     </div>

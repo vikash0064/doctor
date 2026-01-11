@@ -50,6 +50,11 @@ mongoose.connect(MONGO_URI)
 
 // --- ROUTES ---
 
+// Health Check
+app.get('/', (req, res) => {
+    res.send('Dent O Care API is running...');
+});
+
 // 1. Get Testimonials (Frontend: PatientSpeaks)
 app.get('/api/testimonials', async (req, res) => {
     try {
@@ -66,8 +71,10 @@ app.post('/api/testimonials', upload.single('media'), async (req, res) => {
         const { patientName, location, treatment, reviewText } = req.body;
         // Determine media type roughly
         const mediaType = req.file.mimetype.startsWith('video') ? 'video' : 'image';
-        // Construct URL
-        const mediaUrl = `http://localhost:${PORT}/uploads/${req.file.filename}`;
+
+        // Use dynamic structure for media URL
+        const baseUrl = process.env.BASE_URL || `http://localhost:${PORT}`;
+        const mediaUrl = `${baseUrl}/uploads/${req.file.filename}`;
 
         const newTestimonial = new Testimonial({
             patientName,
@@ -118,6 +125,7 @@ app.get('/api/appointments', async (req, res) => {
 });
 
 // Start Server
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running on port ${PORT}`);
 });
+
