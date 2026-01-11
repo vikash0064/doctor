@@ -49,8 +49,13 @@ const AdminDashboard = () => {
                 ]);
                 const apptsData = await apptsRes.json();
                 const testData = await testRes.json();
-                setAppointments(apptsData);
-                setTestimonials(testData);
+
+                setAppointments(Array.isArray(apptsData) ? apptsData : []);
+                setTestimonials(Array.isArray(testData) ? testData : []);
+
+                if (!Array.isArray(apptsData) || !Array.isArray(testData)) {
+                    console.warn('API returned non-array data:', { apptsData, testData });
+                }
             } catch (error) {
                 console.error('Error fetching admin data:', error);
             } finally {
@@ -362,15 +367,23 @@ const AdminDashboard = () => {
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-gray-100 dark:divide-slate-800">
-                                    {appointments.map((appt) => (
-                                        <tr key={appt._id} className="hover:bg-gray-50 dark:hover:bg-slate-800/50 transition-colors">
-                                            <td className="p-4 text-sm font-semibold text-gray-900 dark:text-white">{appt.name}</td>
-                                            <td className="p-4 text-sm text-gray-700 dark:text-gray-300">{appt.phone}</td>
-                                            <td className="p-4 text-sm text-gray-700 dark:text-gray-300">{appt.treatment}</td>
-                                            <td className="p-4 text-sm text-gray-700 dark:text-gray-300">{appt.date}</td>
-                                            <td className="p-4 text-xs text-gray-500 truncate max-w-[200px]">{appt.message}</td>
+                                    {appointments.length > 0 ? (
+                                        appointments.map((appt) => (
+                                            <tr key={appt._id} className="hover:bg-gray-50 dark:hover:bg-slate-800/50 transition-colors">
+                                                <td className="p-4 text-sm font-semibold text-gray-900 dark:text-white">{appt.name}</td>
+                                                <td className="p-4 text-sm text-gray-700 dark:text-gray-300">{appt.phone}</td>
+                                                <td className="p-4 text-sm text-gray-700 dark:text-gray-300">{appt.treatment}</td>
+                                                <td className="p-4 text-sm text-gray-700 dark:text-gray-300">{appt.date}</td>
+                                                <td className="p-4 text-xs text-gray-500 truncate max-w-[200px]">{appt.message}</td>
+                                            </tr>
+                                        ))
+                                    ) : (
+                                        <tr>
+                                            <td colSpan="5" className="p-8 text-center text-gray-500 dark:text-gray-400">
+                                                No appointments found. Try booking one!
+                                            </td>
                                         </tr>
-                                    ))}
+                                    )}
                                 </tbody>
                             </table>
                         </div>

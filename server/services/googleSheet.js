@@ -59,8 +59,14 @@ const appendToSheet = async (data) => {
         console.log('Successfully appended row to Google Sheet');
 
     } catch (error) {
-        console.error('Google Sheet Error Detail:', error);
-        throw error; // Re-throw to handle in the route
+        console.error('Google Sheet Error Detail:', error.message);
+        if (error.message.includes('API has not been used')) {
+            console.error('ACTION REQUIRED: You must enable the Google Sheets API in the Google Cloud Console.');
+            console.error('Visit: https://console.developers.google.com/apis/api/sheets.googleapis.com/overview');
+        }
+        // Don't re-throw if called in background to avoid unhandled promise rejection
+        // but it's already caught in server.js
+        throw error;
     }
 };
 

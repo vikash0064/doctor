@@ -157,6 +157,43 @@ app.get('/api/appointments', async (req, res) => {
     }
 });
 
+// Diagnostics Route
+app.get('/api/diagnose-sheets', async (req, res) => {
+    try {
+        if (!process.env.GOOGLE_SHEET_ID || !process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL || !process.env.GOOGLE_PRIVATE_KEY) {
+            return res.status(400).json({ status: 'Error', message: 'Missing credentials in environment' });
+        }
+
+        const sanitizedKey = process.env.GOOGLE_PRIVATE_KEY.trim().replace(/^"|"$/g, '').replace(/\\n/g, '\n');
+        const { JWT } = require('google-auth-library');
+        const serviceAccountAuth = new JWT({
+            email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL.trim(),
+            key: sanitizedKey,
+            scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+        });
+
+        const { GoogleSpreadsheet } = require('google-spreadsheet');
+        const doc = new GoogleSpreadsheet(process.env.GOOGLE_SHEET_ID.trim(), serviceAccountAuth);
+
+        await doc.loadInfo();
+
+        res.json({
+            status: 'Success',
+            title: doc.title,
+            sheetsCount: doc.sheetCount,
+            firstSheet: doc.sheetsByIndex[0]?.title,
+            serviceAccount: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL.trim()
+        });
+    } catch (err) {
+        res.status(500).json({
+            status: 'Failed',
+            error: err.message,
+            stack: err.stack,
+            hint: 'Ensure GOOGLE_SERVICE_ACCOUNT_EMAIL is the ONE you shared the sheet with.'
+        });
+    }
+});
+
 // Start Server
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running on port ${PORT}`);
