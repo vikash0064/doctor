@@ -21,16 +21,21 @@ const appendToSheet = async (data) => {
         // Initialize Doc
         const doc = new GoogleSpreadsheet(process.env.GOOGLE_SHEET_ID, serviceAccountAuth);
 
-        await doc.loadInfo(); // loads document properties and worksheets
+        await doc.loadInfo();
 
-        const sheet = doc.sheetsByIndex[0]; // Assume the first sheet is the target
+        let sheet = doc.sheetsByIndex[0];
+
+        // If sheet is empty, set headers
+        if (sheet.rowCount <= 1) {
+            await sheet.setHeaderRow(['Name', 'Phone', 'Treatment', 'Date', 'Message', 'SubmittedAt']);
+        }
 
         await sheet.addRow({
-            Name: data.name,
-            Phone: data.phone,
-            Treatment: data.treatment,
-            Date: data.date,
-            Message: data.message,
+            Name: data.name || '',
+            Phone: data.phone || '',
+            Treatment: data.treatment || '',
+            Date: data.date || '',
+            Message: data.message || '',
             SubmittedAt: new Date().toLocaleString()
         });
 
