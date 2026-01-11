@@ -9,10 +9,16 @@ const appendToSheet = async (data) => {
             return;
         }
 
-        // Initialize Auth - JWT is required for google-spreadsheet v4+
+        // Sanitize Private Key (handles literal \n and possible quotes from manual env entry)
+        const sanitizedKey = process.env.GOOGLE_PRIVATE_KEY
+            .trim()
+            .replace(/^"|"$/g, '')
+            .replace(/\\n/g, '\n');
+
+        // Initialize Auth
         const serviceAccountAuth = new JWT({
-            email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-            key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'), // Handle newlines in env var
+            email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL.trim(),
+            key: sanitizedKey,
             scopes: [
                 'https://www.googleapis.com/auth/spreadsheets',
             ],
@@ -32,6 +38,7 @@ const appendToSheet = async (data) => {
         if (sheet.rowCount <= 1) {
             await sheet.setHeaderRow(headers);
         }
+
 
         await sheet.addRow({
             Name: data.name || '',
