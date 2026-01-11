@@ -5,7 +5,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Calendar, ArrowRight, ShieldCheck, Star, Activity, Heart, Users, Award, Clock, ChevronLeft, ChevronRight } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
-import heroBg from '../assets/hero-bg.png';
 
 
 // Import PNG images

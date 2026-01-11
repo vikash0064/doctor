@@ -3,7 +3,7 @@ import { X, ChevronLeft, ChevronRight, ZoomIn, Loader2 } from 'lucide-react';
 import { IMAGES } from '../constants'; // Assuming we can use this or just static URLs
 
 // Dynamically import all images from the gallery folder
-const galleryImages = import.meta.glob('../assets/gallery/*.(png|jpe?g|svg|webp|avif)', { eager: true, as: 'url' });
+const galleryImages = import.meta.glob('../assets/gallery/*.(png|jpe?g|svg|webp|avif)', { eager: true, query: '?url', import: 'default' });
 const localImages = Object.values(galleryImages);
 
 // Expanded Default Images for "Many Images" Demo
