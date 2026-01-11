@@ -22,7 +22,8 @@ const AdminDashboard = () => {
     const [showAppointmentForm, setShowAppointmentForm] = useState(false);
     const [showUploadModal, setShowUploadModal] = useState(false);
     const [selectedPatient, setSelectedPatient] = useState(null);
-    const [activeTab, setActiveTab] = useState('testimonials');
+    const [activeTab, setActiveTab] = useState('appointments');
+    const [fetchError, setFetchError] = useState(null);
 
     const [appointments, setAppointments] = useState([]);
     const [testimonials, setTestimonials] = useState([]);
@@ -54,10 +55,11 @@ const AdminDashboard = () => {
                 setTestimonials(Array.isArray(testData) ? testData : []);
 
                 if (!Array.isArray(apptsData) || !Array.isArray(testData)) {
-                    console.warn('API returned non-array data:', { apptsData, testData });
+                    setFetchError('Invalid data format received from server');
                 }
             } catch (error) {
                 console.error('Error fetching admin data:', error);
+                setFetchError(error.message);
             } finally {
                 setLoading(false);
             }
@@ -261,6 +263,17 @@ const AdminDashboard = () => {
 
             {/* Main Content */}
             <main className="container mx-auto px-4 py-6">
+                {fetchError && (
+                    <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 p-4 rounded-xl mb-6 flex flex-col gap-2">
+                        <div className="font-bold flex items-center gap-2">
+                            <X size={18} />
+                            Connection Error
+                        </div>
+                        <p className="text-sm">Failed to connect to backend: {fetchError}</p>
+                        <p className="text-xs">Ensure your Render backend is running and CORS is enabled.</p>
+                    </div>
+                )}
+
                 {/* Stats Overview */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-6">
                     {statsData.map((stat, index) => (

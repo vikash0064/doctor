@@ -26,7 +26,9 @@ const appendToSheet = async (data) => {
 
         // Initialize Doc
         const sheetId = (process.env.GOOGLE_SHEET_ID || "").trim();
+        const serviceEmail = (process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL || "").trim();
         console.log('Connecting to Google Sheet ID:', sheetId);
+        console.log('Using Service Account:', serviceEmail);
         const doc = new GoogleSpreadsheet(sheetId, serviceAccountAuth);
 
         await doc.loadInfo();
