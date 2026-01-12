@@ -19,6 +19,18 @@ const Appointment = () => {
     const [selectedDoctor, setSelectedDoctor] = useState(null);
     const [availableSlots, setAvailableSlots] = useState([]);
 
+    const [treatmentOptions] = useState([
+        "General Consultation",
+        "Dental Implants",
+        "Root Canal Treatment",
+        "Teeth Whitening",
+        "Braces / Invisalign",
+        "Kids Dentistry",
+        "Dental Crowns",
+        "Wisdom Tooth Removal",
+        "Emergency Care"
+    ]);
+
     const treatments = [
         { value: "General Consultation", duration: "30 mins", price: "₹500", icon: "👨‍⚕️" },
         { value: "Dental Implants", duration: "2-3 hours", price: "From ₹25,000", icon: "🦷" },
@@ -117,32 +129,11 @@ const Appointment = () => {
         return (
             <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-slate-900 px-4 py-20 transition-colors duration-300">
                 <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-6 md:p-8 text-center max-w-sm w-full animate-fadeIn border border-gray-100 dark:border-slate-700">
-                    <div className="relative">
-                        <div className="w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce">
-                            <CheckCircle size={40} className="text-green-600 dark:text-green-400" />
-                        </div>
+                    <div className="w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce">
+                        <CheckCircle size={40} className="text-green-600 dark:text-green-400" />
                     </div>
-
                     <h2 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-2">Booking Confirmed!</h2>
                     <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">We've sent the details to your email.</p>
-
-                    <div className="bg-gray-50 dark:bg-slate-700/50 rounded-xl p-4 mb-6 text-left border border-gray-100 dark:border-slate-600">
-                        <div className="space-y-2 text-sm text-gray-700 dark:text-gray-200">
-                            <div className="flex items-center gap-3">
-                                <User size={14} className="text-blue-500" />
-                                <span className="font-semibold">{formData.name}</span>
-                            </div>
-                            <div className="flex items-center gap-3">
-                                <Calendar size={14} className="text-blue-500" />
-                                <span>{formData.date} at {formData.time}</span>
-                            </div>
-                            <div className="flex items-center gap-3">
-                                <Award size={14} className="text-blue-500" />
-                                <span>{formData.treatment}</span>
-                            </div>
-                        </div>
-                    </div>
-
                     <button
                         onClick={() => {
                             setIsSubmitted(false);
@@ -158,233 +149,173 @@ const Appointment = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-slate-900 pt-20 pb-12 px-4 transition-colors duration-300">
-            <div className="container mx-auto max-w-5xl">
-                {/* Compact Header */}
+        <div className="min-h-screen bg-gray-50 dark:bg-slate-900 pt-24 pb-12 px-4 transition-colors duration-300 flex items-center justify-center">
+            <div className="w-full max-w-lg">
+
+                {/* Header */}
                 <div className="text-center mb-8">
-                    <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">
-                        Book Your Appointment
+                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                        Book Appointment
                     </h1>
                     <p className="text-sm text-gray-500 dark:text-gray-400">
-                        Quick, easy, and secure booking.
+                        Quick, easy, and secure.
                     </p>
                 </div>
 
-                <div className="grid lg:grid-cols-12 gap-6 items-start">
+                {/* Main Card */}
+                <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-xl border border-gray-100 dark:border-slate-700 overflow-hidden">
+                    <div className="bg-blue-600 dark:bg-blue-700 px-6 py-4 flex items-center justify-between">
+                        <div className="flex items-center gap-2 text-white">
+                            <Clock size={18} />
+                            <span className="font-medium text-sm">Takes only 2 minutes</span>
+                        </div>
+                    </div>
 
-                    {/* Booking Form (Order 1 on mobile, Col-span-8 on Desktop) */}
-                    <div className="lg:col-span-8 order-1 lg:order-1">
-                        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 overflow-hidden">
-                            {/* Form Header */}
-                            <div className="bg-blue-600 dark:bg-blue-700 text-white px-6 py-4 flex justify-between items-center">
-                                <span className="font-semibold text-lg">Patient Details</span>
-                                <span className="text-xs bg-white/20 px-2 py-1 rounded text-blue-50">2 min process</span>
-                            </div>
-
-                            <form onSubmit={handleSubmit} className="p-5 md:p-6">
-                                <div className="grid md:grid-cols-2 gap-4 mb-6">
-                                    {/* Name */}
-                                    <div>
-                                        <label className="block text-xs font-semibold text-gray-600 dark:text-gray-300 mb-1.5 uppercase tracking-wide">
-                                            Full Name
-                                        </label>
-                                        <div className="relative">
-                                            <User className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
-                                            <input
-                                                type="text"
-                                                name="name"
-                                                required
-                                                value={formData.name}
-                                                onChange={handleChange}
-                                                className="w-full pl-10 pr-3 py-2.5 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm dark:text-white transition-all outline-none"
-                                                placeholder="Enter your name"
-                                            />
-                                        </div>
-                                    </div>
-
-                                    {/* Phone */}
-                                    <div>
-                                        <label className="block text-xs font-semibold text-gray-600 dark:text-gray-300 mb-1.5 uppercase tracking-wide">
-                                            Phone Number
-                                        </label>
-                                        <div className="relative">
-                                            <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
-                                            <input
-                                                type="tel"
-                                                name="phone"
-                                                required
-                                                value={formData.phone}
-                                                onChange={handleChange}
-                                                className="w-full pl-10 pr-3 py-2.5 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm dark:text-white transition-all outline-none"
-                                                placeholder="+91 98765 43210"
-                                            />
-                                        </div>
-                                    </div>
-
-                                    {/* Email */}
-                                    <div>
-                                        <label className="block text-xs font-semibold text-gray-600 dark:text-gray-300 mb-1.5 uppercase tracking-wide">
-                                            Email (Optional)
-                                        </label>
-                                        <input
-                                            type="email"
-                                            name="email"
-                                            value={formData.email}
-                                            onChange={handleChange}
-                                            className="w-full px-3 py-2.5 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm dark:text-white transition-all outline-none"
-                                            placeholder="email@example.com"
-                                        />
-                                    </div>
-
-                                    {/* Date */}
-                                    <div>
-                                        <label className="block text-xs font-semibold text-gray-600 dark:text-gray-300 mb-1.5 uppercase tracking-wide">
-                                            Date
-                                        </label>
-                                        <div className="relative">
-                                            <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
-                                            <input
-                                                type="date"
-                                                name="date"
-                                                required
-                                                value={formData.date}
-                                                onChange={handleChange}
-                                                className="w-full pl-10 pr-3 py-2.5 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm dark:text-white transition-all outline-none"
-                                                min={new Date().toISOString().split('T')[0]}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Compact Treatment Selection */}
-                                <div className="mb-6">
-                                    <label className="block text-xs font-semibold text-gray-600 dark:text-gray-300 mb-3 uppercase tracking-wide">
-                                        Select Treatment
-                                    </label>
-                                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                                        {treatments.map((tr, idx) => (
-                                            <button
-                                                key={idx}
-                                                type="button"
-                                                onClick={() => setFormData({ ...formData, treatment: tr.value })}
-                                                className={`p-2.5 rounded-lg border text-left transition-all ${formData.treatment === tr.value ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/30' : 'border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-900/50 hover:bg-gray-100 dark:hover:bg-slate-800'}`}
-                                            >
-                                                <div className="flex items-center gap-2 mb-1">
-                                                    <span className="text-lg">{tr.icon}</span>
-                                                    <span className="text-[10px] font-bold text-blue-600 dark:text-blue-400 bg-blue-100 dark:bg-blue-900/40 px-1.5 py-0.5 rounded">
-                                                        {tr.price}
-                                                    </span>
-                                                </div>
-                                                <div className="text-xs font-medium text-gray-900 dark:text-gray-200 truncate">{tr.value}</div>
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                {/* Time Selection */}
-                                <div className="mb-6">
-                                    <label className="block text-xs font-semibold text-gray-600 dark:text-gray-300 mb-3 uppercase tracking-wide">
-                                        Select Time
-                                    </label>
-                                    <div className="flex flex-wrap gap-2">
-                                        {timeSlots.map((time, idx) => (
-                                            <button
-                                                key={idx}
-                                                type="button"
-                                                onClick={() => setFormData({ ...formData, time })}
-                                                className={`px-3 py-1.5 text-xs font-medium rounded-md transition-all border ${formData.time === time ? 'bg-blue-600 text-white border-blue-600' : 'bg-gray-50 dark:bg-slate-900 text-gray-600 dark:text-gray-300 border-gray-200 dark:border-slate-700 hover:border-gray-300'}`}
-                                            >
-                                                {time}
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                {/* Urgency (Compact) */}
-                                <div className="mb-6">
-                                    <label className="block text-xs font-semibold text-gray-600 dark:text-gray-300 mb-2 uppercase tracking-wide">
-                                        Urgency
-                                    </label>
-                                    <div className="flex gap-3">
-                                        {urgencyLevels.map((level) => (
-                                            <button
-                                                key={level.value}
-                                                type="button"
-                                                onClick={() => setFormData({ ...formData, urgency: level.value })}
-                                                className={`flex-1 py-2 text-xs font-medium rounded-lg border transition-all flex items-center justify-center gap-1.5 ${formData.urgency === level.value ? level.color + ' border-current ring-1 ring-current' : 'border-gray-200 dark:border-slate-700 text-gray-600 dark:text-gray-400'}`}
-                                            >
-                                                <span>{level.icon}</span>
-                                                {level.label}
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                {/* Message */}
-                                <div className="mb-6">
-                                    <label className="block text-xs font-semibold text-gray-600 dark:text-gray-300 mb-1.5 uppercase tracking-wide">
-                                        Note (Optional)
-                                    </label>
-                                    <textarea
-                                        name="message"
-                                        rows="2"
-                                        value={formData.message}
+                    <form onSubmit={handleSubmit} className="p-6 md:p-8 space-y-5">
+                        {/* Name & Phone Group */}
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="col-span-2 md:col-span-1">
+                                <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">Full Name</label>
+                                <div className="relative">
+                                    <User className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        required
+                                        value={formData.name}
                                         onChange={handleChange}
-                                        className="w-full px-3 py-2 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm dark:text-white transition-all resize-none outline-none"
-                                        placeholder="Any specific dental issue..."
-                                    ></textarea>
+                                        className="w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 text-sm dark:text-white outline-none"
+                                        placeholder="Your Name"
+                                    />
                                 </div>
+                            </div>
+                            <div className="col-span-2 md:col-span-1">
+                                <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">Phone</label>
+                                <div className="relative">
+                                    <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
+                                    <input
+                                        type="tel"
+                                        name="phone"
+                                        required
+                                        value={formData.phone}
+                                        onChange={handleChange}
+                                        className="w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 text-sm dark:text-white outline-none"
+                                        placeholder="Your Number"
+                                    />
+                                </div>
+                            </div>
+                        </div>
 
-                                <button
-                                    type="submit"
-                                    disabled={isLoading}
-                                    className={`w-full py-3.5 text-sm md:text-base font-bold text-white rounded-xl shadow-lg transition-all transform hover:-translate-y-0.5 active:translate-y-0 ${isLoading ? 'bg-gray-400' : 'bg-blue-600 hover:bg-blue-700 hover:shadow-blue-500/20'}`}
+                        {/* Email */}
+                        <div>
+                            <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">Email (Optional)</label>
+                            <input
+                                type="email"
+                                name="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                className="w-full px-4 py-3 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 text-sm dark:text-white outline-none"
+                                placeholder="email@example.com"
+                            />
+                        </div>
+
+                        {/* Treatment Dropdown (Replaces Grid) */}
+                        <div>
+                            <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">Treatment</label>
+                            <div className="relative">
+                                <Award className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
+                                <select
+                                    name="treatment"
+                                    value={formData.treatment}
+                                    onChange={handleChange}
+                                    className="w-full pl-10 pr-10 py-3 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 text-sm dark:text-white outline-none appearance-none"
                                 >
-                                    {isLoading ? 'Processing...' : 'Confirm Appointment'}
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-
-                    {/* Left Info Panel (Order 2 on mobile - Below form, Col-span-4 on Desktop) */}
-                    <div className="lg:col-span-4 order-2 lg:order-2 space-y-4">
-                        {/* Compact Location Card */}
-                        <div className="bg-white dark:bg-slate-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-slate-700">
-                            <h3 className="font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
-                                <MapPin size={18} className="text-blue-500" />
-                                Our Location
-                            </h3>
-                            <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">123 Dental Street, Surat</p>
-                            <p className="text-xs text-gray-500 dark:text-gray-500">Mon-Sat: 9AM - 9PM</p>
-
-                            <div className="mt-4 pt-4 border-t border-gray-100 dark:border-slate-700">
-                                <a href="tel:+918401783154" className="flex items-center justify-between text-sm group">
-                                    <span className="text-gray-600 dark:text-gray-400">Emergency 24/7</span>
-                                    <span className="font-bold text-blue-600 group-hover:underline">+91 84017 83154</span>
-                                </a>
+                                    {treatmentOptions.map((opt, i) => (
+                                        <option key={i} value={opt}>{opt}</option>
+                                    ))}
+                                </select>
+                                <ChevronRight className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 rotate-90" size={16} />
                             </div>
                         </div>
 
-                        {/* Stats - Horizontal Strip on Mobile */}
-                        <div className="bg-blue-50 dark:bg-slate-800/50 rounded-xl p-4 border border-blue-100 dark:border-slate-700">
-                            <div className="flex justify-between items-center text-center">
-                                <div>
-                                    <div className="text-lg font-bold text-blue-600 dark:text-blue-400">4.9★</div>
-                                    <div className="text-[10px] text-gray-500 uppercase font-semibold">Rating</div>
-                                </div>
-                                <div className="w-px h-8 bg-blue-200 dark:bg-slate-600"></div>
-                                <div>
-                                    <div className="text-lg font-bold text-green-600 dark:text-green-400">98%</div>
-                                    <div className="text-[10px] text-gray-500 uppercase font-semibold">Success</div>
-                                </div>
-                                <div className="w-px h-8 bg-blue-200 dark:bg-slate-600"></div>
-                                <div>
-                                    <div className="text-lg font-bold text-purple-600 dark:text-purple-400">30K+</div>
-                                    <div className="text-[10px] text-gray-500 uppercase font-semibold">Smiles</div>
+                        {/* Date & Time */}
+                        <div className="grid grid-cols-2 gap-4">
+                            <div>
+                                <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">Date</label>
+                                <input
+                                    type="date"
+                                    name="date"
+                                    required
+                                    value={formData.date}
+                                    onChange={handleChange}
+                                    className="w-full px-4 py-3 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 text-sm dark:text-white outline-none"
+                                    min={new Date().toISOString().split('T')[0]}
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">Time</label>
+                                <div className="relative">
+                                    <select
+                                        name="time"
+                                        value={formData.time}
+                                        onChange={handleChange}
+                                        className="w-full px-4 py-3 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 text-sm dark:text-white outline-none appearance-none"
+                                    >
+                                        {timeSlots.map((time, index) => (
+                                            <option key={index} value={time}>{time}</option>
+                                        ))}
+                                    </select>
+                                    <ChevronRight className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 rotate-90" size={16} />
                                 </div>
                             </div>
                         </div>
-                    </div>
+
+                        {/* Urgency */}
+                        <div>
+                            <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">Urgency</label>
+                            <div className="flex gap-2">
+                                {urgencyLevels.map((level) => (
+                                    <button
+                                        key={level.value}
+                                        type="button"
+                                        onClick={() => setFormData({ ...formData, urgency: level.value })}
+                                        className={`flex-1 py-2 text-xs font-medium rounded-lg border transition-all flex justify-center items-center gap-1 ${formData.urgency === level.value ? level.color + ' border-current' : 'border-gray-200 dark:border-slate-700 text-gray-600 dark:text-gray-400'}`}
+                                    >
+                                        {level.label}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Message */}
+                        <div>
+                            <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">Note (Optional)</label>
+                            <textarea
+                                name="message"
+                                rows="2"
+                                value={formData.message}
+                                onChange={handleChange}
+                                className="w-full px-4 py-3 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 text-sm dark:text-white outline-none resize-none"
+                                placeholder="Any specific dental issue..."
+                            ></textarea>
+                        </div>
+
+                        <button
+                            type="submit"
+                            disabled={isLoading}
+                            className={`w-full py-4 text-base font-bold text-white rounded-xl shadow-lg transition-all transform hover:scale-[1.02] active:scale-[0.98] ${isLoading ? 'bg-gray-400' : 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:shadow-blue-500/30'}`}
+                        >
+                            {isLoading ? 'Processing...' : 'Confirm Appointment'}
+                        </button>
+                    </form>
+                </div>
+
+                <div className="mt-8 text-center">
+                    <p className="text-gray-500 dark:text-gray-400 text-sm mb-2">Need help?</p>
+                    <a href="tel:+918401783154" className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 font-bold bg-blue-50 dark:bg-blue-900/20 px-4 py-2 rounded-full text-sm">
+                        <Phone size={16} />
+                        +91 84017 83154
+                    </a>
                 </div>
             </div>
         </div>
