@@ -127,22 +127,87 @@ const Appointment = () => {
 
     if (isSubmitted) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-slate-900 px-4 py-20 transition-colors duration-300">
-                <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-6 md:p-8 text-center max-w-sm w-full animate-fadeIn border border-gray-100 dark:border-slate-700">
-                    <div className="w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce">
-                        <CheckCircle size={40} className="text-green-600 dark:text-green-400" />
+            <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-slate-900 px-4 py-12 transition-colors duration-300">
+                <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-2xl overflow-hidden max-w-md w-full animate-fadeIn border border-gray-100 dark:border-slate-700">
+
+                    {/* Success Header */}
+                    <div className="bg-green-500 text-white p-8 text-center relative overflow-hidden">
+                        <div className="relative z-10">
+                            <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-white/30 animate-bounce">
+                                <CheckCircle size={32} className="text-white" />
+                            </div>
+                            <h2 className="text-2xl font-bold mb-1">Booking Confirmed!</h2>
+                            <p className="text-green-100 text-sm">Your appointment has been scheduled.</p>
+                        </div>
+                        {/* Decorative Circles */}
+                        <div className="absolute -top-10 -left-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+                        <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
                     </div>
-                    <h2 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-2">Booking Confirmed!</h2>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">We've sent the details to your email.</p>
-                    <button
-                        onClick={() => {
-                            setIsSubmitted(false);
-                            resetForm();
-                        }}
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2 text-sm"
-                    >
-                        Book Another
-                    </button>
+
+                    {/* Receipt Details */}
+                    <div className="p-6 md:p-8">
+                        <div className="bg-gray-50 dark:bg-slate-700/50 rounded-2xl border border-dashed border-gray-200 dark:border-slate-600 p-6 relative">
+                            {/* Cutout Effect */}
+                            <div className="absolute -left-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-white dark:bg-slate-800 rounded-full border-r border-gray-100 dark:border-slate-600"></div>
+                            <div className="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-white dark:bg-slate-800 rounded-full border-l border-gray-100 dark:border-slate-600"></div>
+
+                            <div className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4 text-center">Receipt #ORD-{Math.floor(Math.random() * 10000)}</div>
+
+                            <div className="space-y-4">
+                                <div className="flex justify-between items-center border-b border-gray-100 dark:border-slate-600 pb-3">
+                                    <span className="text-gray-500 dark:text-gray-400 text-sm">Patient</span>
+                                    <span className="font-bold text-gray-900 dark:text-white">{formData.name}</span>
+                                </div>
+                                <div className="flex justify-between items-center border-b border-gray-100 dark:border-slate-600 pb-3">
+                                    <span className="text-gray-500 dark:text-gray-400 text-sm">Treatment</span>
+                                    <span className="font-bold text-gray-900 dark:text-white text-right">{formData.treatment}</span>
+                                </div>
+                                <div className="flex justify-between items-center border-b border-gray-100 dark:border-slate-600 pb-3">
+                                    <span className="text-gray-500 dark:text-gray-400 text-sm">Date & Time</span>
+                                    <span className="font-bold text-gray-900 dark:text-white">{formData.date} | {formData.time}</span>
+                                </div>
+                                <div className="flex justify-between items-center pt-1">
+                                    <span className="text-gray-500 dark:text-gray-400 text-sm">Doctor</span>
+                                    <span className="font-bold text-blue-600 dark:text-blue-400">Dr. Assigned</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p className="text-xs text-center text-gray-400 mt-6 mb-6">
+                            A confirmation email has been sent to <br />
+                            <span className="text-gray-600 dark:text-gray-300 font-medium">{formData.email || 'your email'}</span>
+                        </p>
+
+                        {/* Action Buttons */}
+                        <div className="grid grid-cols-2 gap-3">
+                            <button
+                                onClick={() => window.print()}
+                                className="flex items-center justify-center gap-2 py-3 bg-gray-100 dark:bg-slate-700 hover:bg-gray-200 dark:hover:bg-slate-600 text-gray-700 dark:text-white rounded-xl font-medium transition-colors text-sm"
+                            >
+                                <FileText size={16} />
+                                Download Receipt
+                            </button>
+                            <a
+                                href="https://wa.me/918401783154"
+                                target="_blank"
+                                rel="noreferrer"
+                                className="flex items-center justify-center gap-2 py-3 bg-green-500 hover:bg-green-600 text-white rounded-xl font-medium transition-colors text-sm"
+                            >
+                                <MessageCircle size={16} />
+                                Chat Support
+                            </a>
+                            <button
+                                onClick={() => {
+                                    setIsSubmitted(false);
+                                    resetForm();
+                                }}
+                                className="col-span-2 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold shadow-lg shadow-blue-500/20 transition-all text-sm flex items-center justify-center gap-2"
+                            >
+                                <Calendar size={18} />
+                                Book Another Appointment
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         );
