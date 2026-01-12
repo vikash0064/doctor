@@ -9,15 +9,25 @@ const appendToSheet = async (data) => {
             return;
         }
 
-        // Sanitize Private Key (handles literal \n, possible quotes, and missing headers)
-        let sanitizedKey = process.env.GOOGLE_PRIVATE_KEY
-            .trim()
-            .replace(/^"|"$/g, '')
-            .replace(/\\n/g, '\n');
+        // SMART KEY REPAIR
+        // 1. Remove comments or extra text
+        // 2. Switch literal \n to real newlines
+        // 3. If the user pasted it with spaces instead of newlines, fix that.
+        let rawKey = process.env.GOOGLE_PRIVATE_KEY
+            .replace(/\\n/g, '\n')
+            .replace(/"/g, '')
+            .trim();
 
-        if (!sanitizedKey.includes('-----BEGIN PRIVATE KEY-----')) {
-            sanitizedKey = `-----BEGIN PRIVATE KEY-----\n${sanitizedKey}\n-----END PRIVATE KEY-----`;
+        // If it looks like they just pasted the content without headers:
+        if (!rawKey.includes('-----BEGIN PRIVATE KEY-----')) {
+            // Check if it's space-separated instead of newline-separated (common copy-paste error)
+            if (rawKey.includes(' ') && !rawKey.includes('\n')) {
+                rawKey = rawKey.split(' ').join('\n');
+            }
+            rawKey = `-----BEGIN PRIVATE KEY-----\n${rawKey}\n-----END PRIVATE KEY-----`;
         }
+
+        const sanitizedKey = rawKey;
 
         // Initialize Auth
         const serviceAccountAuth = new JWT({

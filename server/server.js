@@ -164,10 +164,14 @@ app.get('/api/diagnose-sheets', async (req, res) => {
             return res.status(400).json({ status: 'Error', message: 'Missing credentials in environment' });
         }
 
-        let sanitizedKey = process.env.GOOGLE_PRIVATE_KEY.trim().replace(/^"|"$/g, '').replace(/\\n/g, '\n');
-        if (!sanitizedKey.includes('-----BEGIN PRIVATE KEY-----')) {
-            sanitizedKey = `-----BEGIN PRIVATE KEY-----\n${sanitizedKey}\n-----END PRIVATE KEY-----`;
+        let rawKey = process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n').replace(/"/g, '').trim();
+        if (!rawKey.includes('-----BEGIN PRIVATE KEY-----')) {
+            if (rawKey.includes(' ') && !rawKey.includes('\n')) {
+                rawKey = rawKey.split(' ').join('\n');
+            }
+            rawKey = `-----BEGIN PRIVATE KEY-----\n${rawKey}\n-----END PRIVATE KEY-----`;
         }
+        const sanitizedKey = rawKey;
         const { JWT } = require('google-auth-library');
         const serviceAccountAuth = new JWT({
             email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL.trim(),
