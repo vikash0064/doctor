@@ -41,30 +41,39 @@ const AdminDashboard = () => {
         date: new Date().toISOString().split('T')[0]
     });
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const [apptsRes, testRes] = await Promise.all([
-                    fetch(API_ENDPOINTS.appointments),
-                    fetch(API_ENDPOINTS.testimonials)
-                ]);
-                const apptsData = await apptsRes.json();
-                const testData = await testRes.json();
+    const fetchData = async () => {
+        try {
+            const [apptsRes, testRes] = await Promise.all([
+                fetch(API_ENDPOINTS.appointments),
+                fetch(API_ENDPOINTS.testimonials)
+            ]);
+            const apptsData = await apptsRes.json();
+            const testData = await testRes.json();
 
-                setAppointments(Array.isArray(apptsData) ? apptsData : []);
-                setTestimonials(Array.isArray(testData) ? testData : []);
+            // Sort appointments by date (newest first) but handle potential strings safely
+            const sortedAppts = Array.isArray(apptsData)
+                ? apptsData.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0))
+                : [];
 
-                if (!Array.isArray(apptsData) || !Array.isArray(testData)) {
-                    setFetchError('Invalid data format received from server');
-                }
-            } catch (error) {
-                console.error('Error fetching admin data:', error);
-                setFetchError(error.message);
-            } finally {
-                setLoading(false);
+            setAppointments(sortedAppts);
+            setTestimonials(Array.isArray(testData) ? testData : []);
+
+            if (!Array.isArray(apptsData) || !Array.isArray(testData)) {
+                setFetchError('Invalid data format received from server');
             }
-        };
+        } catch (error) {
+            console.error('Error fetching admin data:', error);
+            setFetchError(error.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
         fetchData();
+        // Poll every 30 seconds to keep dashboard fresh
+        const interval = setInterval(fetchData, 30000);
+        return () => clearInterval(interval);
     }, []);
 
     // Stats calculation based on live data
