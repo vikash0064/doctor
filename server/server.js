@@ -191,8 +191,10 @@ app.get('/api/diagnose-sheets', async (req, res) => {
         res.status(500).json({
             status: 'Failed',
             error: err.message,
-            stack: err.stack,
-            hint: 'Ensure GOOGLE_SERVICE_ACCOUNT_EMAIL is the ONE you shared the sheet with.'
+            emailHelper: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+            keyLength: process.env.GOOGLE_PRIVATE_KEY ? process.env.GOOGLE_PRIVATE_KEY.length : 0,
+            sanitizedKeyStart: process.env.GOOGLE_PRIVATE_KEY ? process.env.GOOGLE_PRIVATE_KEY.substring(0, 10) : 'N/A',
+            hint: 'Ensure key is pasted correctly in Render.'
         });
     }
 });
