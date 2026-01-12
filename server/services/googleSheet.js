@@ -9,11 +9,15 @@ const appendToSheet = async (data) => {
             return;
         }
 
-        // Sanitize Private Key (handles literal \n and possible quotes from manual env entry)
-        const sanitizedKey = process.env.GOOGLE_PRIVATE_KEY
+        // Sanitize Private Key (handles literal \n, possible quotes, and missing headers)
+        let sanitizedKey = process.env.GOOGLE_PRIVATE_KEY
             .trim()
             .replace(/^"|"$/g, '')
             .replace(/\\n/g, '\n');
+
+        if (!sanitizedKey.includes('-----BEGIN PRIVATE KEY-----')) {
+            sanitizedKey = `-----BEGIN PRIVATE KEY-----\n${sanitizedKey}\n-----END PRIVATE KEY-----`;
+        }
 
         // Initialize Auth
         const serviceAccountAuth = new JWT({
